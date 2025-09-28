@@ -1,0 +1,12 @@
+C:\Users\Lenovo\source\repos\ECommerceProject\ECommerceProjectDA\bin\Debug\net8.0\ECommerceProjectDA.deps.json
+C:\Users\Lenovo\source\repos\ECommerceProject\ECommerceProjectDA\bin\Debug\net8.0\ECommerceProjectDA.dll
+C:\Users\Lenovo\source\repos\ECommerceProject\ECommerceProjectDA\bin\Debug\net8.0\ECommerceProjectDA.pdb
+C:\Users\Lenovo\source\repos\ECommerceProject\ECommerceProjectDA\obj\Debug\net8.0\ECommerceProjectDA.csproj.AssemblyReference.cache
+C:\Users\Lenovo\source\repos\ECommerceProject\ECommerceProjectDA\obj\Debug\net8.0\ECommerceProjectDA.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Lenovo\source\repos\ECommerceProject\ECommerceProjectDA\obj\Debug\net8.0\ECommerceProjectDA.AssemblyInfoInputs.cache
+C:\Users\Lenovo\source\repos\ECommerceProject\ECommerceProjectDA\obj\Debug\net8.0\ECommerceProjectDA.AssemblyInfo.cs
+C:\Users\Lenovo\source\repos\ECommerceProject\ECommerceProjectDA\obj\Debug\net8.0\ECommerceProjectDA.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\source\repos\ECommerceProject\ECommerceProjectDA\obj\Debug\net8.0\ECommerceProjectDA.dll
+C:\Users\Lenovo\source\repos\ECommerceProject\ECommerceProjectDA\obj\Debug\net8.0\refint\ECommerceProjectDA.dll
+C:\Users\Lenovo\source\repos\ECommerceProject\ECommerceProjectDA\obj\Debug\net8.0\ECommerceProjectDA.pdb
+C:\Users\Lenovo\source\repos\ECommerceProject\ECommerceProjectDA\obj\Debug\net8.0\ref\ECommerceProjectDA.dll
