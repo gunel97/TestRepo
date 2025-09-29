@@ -14,9 +14,9 @@ namespace ECommerceProject.MVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(int id)
+        public IActionResult Add(int productVariantId, int quantity)
         {
-            _basketManager.AddToBasket(id);
+            _basketManager.AddToBasket(productVariantId, quantity);
 
             return NoContent();
         }
@@ -34,6 +34,18 @@ namespace ECommerceProject.MVC.Controllers
             var model = await _basketManager.GetBasketAsync();
 
             return Json(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeQuantity(int productVariantId, int change)
+        {
+            var basketViewModel = await _basketManager.ChangeQuantityAsync(productVariantId, change);
+
+            return Json(new
+            {
+                success = true,
+                basketViewModel
+            });
         }
     }
 }

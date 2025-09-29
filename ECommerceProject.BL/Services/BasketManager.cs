@@ -33,7 +33,6 @@ namespace ECommerceProject.BL.Services
 
             foreach(var item in basket)
             {
-                //var product = await _productService.GetByIdAsync(item.ProductId);
                 var productVariant = await _productVariantService.GetAsync(predicate:x=>x.Id==item.ProductVariantId,
                     include: x=>x.Include(c=>c.Color!));
                 
@@ -54,20 +53,61 @@ namespace ECommerceProject.BL.Services
 
             return basketViewModel;
         }
+
+        public async Task<BasketViewModel> ChangeQuantityAsync(int productVariantId, int quantity)
+        {
+            var basket = GetBasketFromCookie();
+            var basketItem = basket.FirstOrDefault(item=>item.ProductVariantId==productVariantId);
+
+            if (basketItem != null)
+            {
+                basketItem.Quantity += quantity;
+
+                SaveBasketToCookie(basket);
+            }
+
+            var basketViewModel = new BasketViewModel();
+
+            foreach(var item in basket)
+            {
+                var productVariant = await _productVariantService.GetAsync(predicate: x => x.Id == item.ProductVariantId,
+                     include: x => x.Include(c => c.Color!));
+
+                if (productVariant != null)
+                {
+                    var product = await _productService.GetByIdAsync(productVariant.ProductId);
+
+                    if (product != null)
+                    {
+                        basketViewModel.Items.Add(new BasketItemViewModel
+                        {
+                            ProductVariantId = productVariant.Id,
+                            ProductName = product.Name!,
+                            ImageName = productVariant.CoverImageName!,
+                            Price = product.BasePrice,
+                            Quantity=item.Quantity,
+                            ColorName=productVariant.ColorName!,
+                        });
+                    }
+                }
+            }
+
+            return basketViewModel;
+        }
         
-        public void AddToBasket(int productVariantId)
+        public void AddToBasket(int productVariantId, int quantity)
         {
             var basket = GetBasketFromCookie();
             var basketItem = basket.FirstOrDefault(item => item.ProductVariantId == productVariantId);
 
             if (basketItem != null)
-                basketItem.Quantity++;
+                basketItem.Quantity+=quantity;
             else
             {
                 basket.Add(new BasketCookieItemViewModel
                 {
                     ProductVariantId = productVariantId,
-                    Quantity = 1
+                    Quantity = quantity
                 });
             }
 

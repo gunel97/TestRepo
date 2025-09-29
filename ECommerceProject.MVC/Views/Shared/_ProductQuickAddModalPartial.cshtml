@@ -18,7 +18,7 @@
                             <!-- <div class="price-on-sale">$8.00</div>
                             <div class="compare-at-price">$10.00</div>
                             <div class="badges-on-sale"><span>20</span>% OFF</div> -->
-                            <div class="price">$@Model.BasePrice</div>
+                            <div id=@("productPriceQuickAdd"+Model.Id) class="price">@Model.BasePrice</div>
                         </div>
                     </div>
                 </div>
@@ -27,7 +27,6 @@
                         <div class="variant-picker-label">
                             Color: <span class="fw-6 variant-picker-label-value">@Model.ProductVariants?.FirstOrDefault()?.ColorName</span>
                             <input type="hidden" id=@("product"+Model.Id) value="@Model.ProductVariants?.FirstOrDefault()?.Id"/>
-                            
                         </div>
                         <div class="variant-picker-values">
                             @foreach (var variant in Model.ProductVariants ?? [])
@@ -68,19 +67,20 @@
                 <div class="tf-product-info-quantity mb_15">
                     <div class="quantity-title fw-6">Quantity</div>
                     <div class="wg-quantity">
-                        <span class="btn-quantity minus-btn">-</span>
-                        <input type="text" name="number" value="1">
-                        <span class="btn-quantity plus-btn">+</span>
+                        <span onclick="updateTotalQuickAdd(@Model.Id, -1)" class="btn-quantity minus-btn">-</span>
+                        <input type="hidden" value="@Model.Id" id="productIdHiddenInput"/>
+                        <input id=@("productQuantityQuickAdd"+Model.Id) type="text" name="number" value="1">
+                        <span onclick="updateTotalQuickAdd(@Model.Id, 1)" class="btn-quantity plus-btn">+</span>
                     </div>
                 </div>
                 <div class="tf-product-info-buy-button">
                     <form>
-                        <a onclick="addToBasket(`product${@Model.Id}`)"
+                          <a onclick="getQuantity(@Model.Id, `product${@Model.Id}`)" 
                            class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart">
                             <span>
                                 Add
                                 to cart -&nbsp;
-                            </span><span class="tf-qty-price">$18.00</span>
+                            </span><span id=@("totalPriceQuickAdd" + Model.Id) class="tf-qty-price">$@Model.BasePrice</span>
                         </a>
                         <div class="tf-product-btn-wishlist btn-icon-action">
                             <i class="icon-heart"></i>
@@ -101,7 +101,8 @@
         </div>
     </div>
 </div>
-
 <script>
 
+
 </script>
+

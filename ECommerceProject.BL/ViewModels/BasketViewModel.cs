@@ -26,7 +26,6 @@ namespace ECommerceProject.BL.ViewModels
 
     public class BasketCookieItemViewModel
     {
-        //public int ProductId { get; set; }
         public int ProductVariantId { get; set; }
         public int Quantity { get; set; }
     }

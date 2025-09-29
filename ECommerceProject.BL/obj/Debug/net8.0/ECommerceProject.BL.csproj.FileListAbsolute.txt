@@ -13,3 +13,4 @@ C:\Users\Lenovo\source\repos\ECommerceProject\ECommerceProject.BL\obj\Debug\net8
 C:\Users\Lenovo\source\repos\ECommerceProject\ECommerceProject.BL\obj\Debug\net8.0\refint\ECommerceProject.BL.dll
 C:\Users\Lenovo\source\repos\ECommerceProject\ECommerceProject.BL\obj\Debug\net8.0\ECommerceProject.BL.pdb
 C:\Users\Lenovo\source\repos\ECommerceProject\ECommerceProject.BL\obj\Debug\net8.0\ref\ECommerceProject.BL.dll
+C:\Users\Lenovo\source\repos\ECommerceProject\ECommerceProject.BL\obj\Debug\net8.0\ECommerceProject.BL.sourcelink.json

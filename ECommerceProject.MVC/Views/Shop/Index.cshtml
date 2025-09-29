@@ -27,6 +27,7 @@
                 <li class="tf-view-layout-switch sw-layout-list list-layout" data-value-layout="list">
                     <div class="item"><span class="icon icon-list"></span></div>
                 </li>
+                <a href="c:\users\lenovo\source\repos\ecommerceproject\ecommerceproject.mvc\views\shop\index.cshtml">c:\users\lenovo\source\repos\ecommerceproject\ecommerceproject.mvc\views\shop\index.cshtml</a>
                 <li class="tf-view-layout-switch sw-layout-2" data-value-layout="tf-col-2">
                     <div class="item"><span class="icon icon-grid-2"></span></div>
                 </li>
@@ -97,13 +98,13 @@
                                 <img class="lazyload img-product" data-src="images/products/@product.ProductVariants?.FirstOrDefault()?.CoverImageName"
                                      src="~/images/products/@product.ProductVariants?.FirstOrDefault()?.CoverImageName" alt="image-product">
 
-                                @if (product.ProductVariants.Count > 1)
+                                @if (product.ProductVariants?.Count > 1)
                                 {
                                     <img class="lazyload img-hover" data-src="/images/products/@product.ProductVariants[1].CoverImageName"
                                          src="~/images/products/@product.ProductVariants[1].CoverImageName" alt="image-product">
                                 }
 
-                                @if (product.ProductVariants.Count == 1)
+                                @if (product.ProductVariants?.Count == 1)
                                 {
                                     <img class="lazyload img-hover" data-src="/images/products/@product.ProductVariants[0].CoverImageName"
                                          src="~/images/products/@product.ProductVariants[0].CoverImageName" alt="image-product">
@@ -135,6 +136,7 @@
                             </div>
                             <div class="list-product-btn">
                                 <a href="#quick_add" data-bs-toggle="modal"
+                                   data-bs-target="#quick_add_@product.Id"
                                 class="box-icon quick-add style-3 hover-tooltip">
                                     <span class="icon icon-bag"></span><span class="tooltip">Quick add</span>
                                 </a>
@@ -201,6 +203,7 @@
                             </a>
                             <div class="list-product-btn absolute-2">
                                 <a href="#quick_add" data-bs-toggle="modal"
+                                   data-bs-target="#quick_add_@product.Id"
                                 class="box-icon bg_white quick-add tf-btn-loading">
                                     <span class="icon icon-bag"></span>
                                     <span class="tooltip">Quick Add</span>
@@ -261,10 +264,18 @@
                     </li>
                 </ul>
             </div>
+
+            <!-- modal quick_add -->
+            @foreach (var product in products)
+            {
+                <partial name="_ProductQuickAddModalPartial" model="@product" />
+            }
+            <!-- /modal quick_add -->
+
             <!-- modal quick_view -->
             @foreach (var product in products)
             {
-               <partial name="_ProductQuickViewModalPartial" model="@product" />
+                <partial name="_ProductQuickViewModalPartial" model="@product"></partial>
             }
 
             <!-- /modal quick_view -->
