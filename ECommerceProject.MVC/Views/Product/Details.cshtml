@@ -117,13 +117,15 @@
                                         Color: <span class="fw-6 variant-picker-label-value value-currentColor">
                                             @Model.ProductVariants?.FirstOrDefault()?.ColorName
                                         </span>
+                                        <input type="hidden" id=@("productD" + Model.Id) value="@Model.ProductVariants?.FirstOrDefault()?.Id" />
                                     </div>
                                     <div class="variant-picker-values">
                                         @foreach(var variant in Model.ProductVariants ?? [])
                                         {
-                                        <input id="values-@variant.ColorName?.ToLower()" type="radio" name="color1" checked>
-                                        <label class="hover-tooltip radius-60 color-btn" for="values-@variant.ColorName?.ToLower()"
-                                               data-color="@variant.ColorName?.ToLower()" data-value="@variant.ColorName">
+                                            <input onchange="setSelectedColorD(@variant.Id, @Model.Id, this)" id="values-@variant.ColorName?.ToLower()"
+                                            type="radio" name="color1" checked>
+                                        <label class="hover-tooltip radius-60" for="values-@variant.ColorName?.ToLower()"
+                                                data-value="@variant.ColorName">
                                             <span class="btn-checkbox bg-color-beige"></span>
                                             <span class="tooltip">@variant.ColorName</span>
                                         </label>
@@ -167,13 +169,13 @@
                                 <div class="quantity-title fw-6">Quantity</div>
                                 <div class="wg-quantity">
                                     <span class="btn-quantity btn-decrease">-</span>
-                                    <input type="text" class="quantity-product" name="number" value="1">
+                                    <input id=@("productQuantityDetails"+Model.Id) type="number" min="1" class="quantity-product" name="number" value="1">
                                     <span class="btn-quantity btn-increase">+</span>
                                 </div>
                             </div>
                             <div class="tf-product-info-buy-button">
                                 <form class="">
-                                    <a href="#"
+                                    <a onclick="getQuantityD(@Model.Id, `productD${@Model.Id}`)" href="#"
                                        class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart">
                                         <span>
                                             Add
@@ -1580,3 +1582,6 @@
 </section>
 <!-- /recent -->
 
+<script>
+
+</script>

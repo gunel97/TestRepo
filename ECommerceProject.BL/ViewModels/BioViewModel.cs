@@ -17,4 +17,6 @@ namespace ECommerceProject.BL.ViewModels
     public class BioCreateViewModel { }
 
     public class BioUpdateViewModel { }
+
+  
 }

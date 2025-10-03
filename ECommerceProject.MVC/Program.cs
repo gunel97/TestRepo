@@ -1,6 +1,8 @@
+using ECommerceProject.BL;
 using ECommerceProject.DA;
 using ECommerceProject.DA.DataContext;
-using ECommerceProject.BL;
+using ECommerceProject.DA.DataContext.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace ECommerceProject.MVC
 {
@@ -15,7 +17,17 @@ namespace ECommerceProject.MVC
             builder.Services.AddControllersWithViews();
             builder.Services.AddDataAccessLayerServices(builder.Configuration);
             builder.Services.AddBusinessLogicLayerServices();
-                    
+
+            builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
+            {
+                options.Password.RequiredLength = 4;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 3;
+            }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

@@ -959,14 +959,14 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="view-cart.html"
+                                                <a asp-controller="basket" asp-action="index"
                                                    class="menu-link-text link text_black-2 position-relative">
                                                     View
                                                     cart
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="checkout.html"
+                                                <a asp-controller="basket" asp-action="checkout"
                                                    class="menu-link-text link text_black-2 position-relative">
                                                     Check
                                                     out
@@ -994,11 +994,11 @@
                                                 </div>
                                             </li>
                                             <li class="menu-item-2">
-                                                <a href="#" class="menu-link-text link text_black-2">My account</a>
+                                                <a asp-controller="account" asp-action="index" class="menu-link-text link text_black-2">My account</a>
                                                 <div class="sub-menu submenu-default">
                                                     <ul class="menu-list">
                                                         <li>
-                                                            <a href="my-account.html"
+                                                            <a asp-controller="account" asp-action="index"
                                                                class="menu-link-text link text_black-2">My account</a>
                                                         </li>
                                                         <li>
@@ -1093,8 +1093,12 @@
                                 </a>
                             </li>
                             <li class="nav-account">
-                                <a href="#login" data-bs-toggle="modal" class="nav-icon-item">
-                                    <i class="icon icon-account"></i>
+                                <a asp-controller="account" asp-action="login" @* data-bs-toggle="modal" *@ class="nav-icon-item">
+                                @if (User.Identity!.IsAuthenticated)
+                                {
+                                <span>@User.Identity.Name</span>
+                                }
+                                <i class="icon icon-account"></i>
                                 </a>
                             </li>
                             <li class="nav-wishlist">

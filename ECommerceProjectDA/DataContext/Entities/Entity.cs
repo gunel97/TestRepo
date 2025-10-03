@@ -20,6 +20,14 @@ namespace ECommerceProject.DA.DataContext.Entities
         public bool IsDeleted { get; set; }
     }
 
+    public class UserWishlistItem : TimeStample
+    {
+        public int ProductId { get; set; }
+        public Product? Product { get; set; } 
+        public string? AppUserId { get; set; }
+        public AppUser? AppUser { get; set; }
+    }
+
     public class Language : TimeStample
     {
         public string Name { get; set; } = null!;
@@ -66,6 +74,7 @@ namespace ECommerceProject.DA.DataContext.Entities
         public int CategoryId { get; set; }
         public Category? Category { get; set; }
         public List<ProductVariant> ProductVariants { get; set; } = [];
+        public List<UserWishlistItem> UserWishlistItems { get; set; } = [];
     }
     public class Color:TimeStample
     {
@@ -80,8 +89,10 @@ namespace ECommerceProject.DA.DataContext.Entities
         public Color? Color { get; set; }
         public string CoverImageName { get; set; } = null!;
         public decimal Price { get; set; }
+        public int SalePercentage { get; set; }
         public int Quantity { get; set; }
         public List<ProductImage> ProductImages { get; set; } = [];
+        public List<OrderDetail> OrderDetails { get; set; } = [];
     }
 
     public class ProductImage:TimeStample
@@ -94,9 +105,53 @@ namespace ECommerceProject.DA.DataContext.Entities
 
     public class AppUser : IdentityUser
     {
-        public string? FullName { get; set; }
-        public string? ProfileImageName { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public List<UserWishlistItem> UserWishlistItems = [];
+        public List<Order> Orders { get; set; } = [];
+        public List<Address> Addresses { get; set; } = [];
     }
 
+    public class Order : TimeStample
+    {
+        public int DiscountCodeId { get; set; }
+        public DiscountCode? DiscountCode { get; set; }
+        public string? AppUserId { get; set; }
+        public AppUser? AppUser { get; set; }
+        public List<OrderDetail> OrderDetails { get; set; } = [];
+        public bool GiftWrap { get; set; }
+        public string Note { get; set; } = null!;
+        public string Email { get; set; } = null!;
+    }
+
+    public class OrderDetail : Entity
+    {
+        public int Quantity { get; set; }
+        public int OrderId { get; set; }
+        public Order Order { get; set; } = null!;
+        public int ProductVariantId { get; set; }
+        public ProductVariant ProductVariant { get; set; } = null!;
+    }
+
+    public class Address : TimeStample
+    {
+        public string FirstName { get; set; } = null!;
+        public string LastName { get; set; } = null!;
+        public string Company { get; set; }= null!;
+        public string Country { get; set; } = null!;
+        public string City { get; set; } = null!;
+        public string Adress { get; set; } = null!;
+        public string Phone { get; set; } = null!;
+        public string PostalCode { get; set; } = null!;
+        public string? AppUserId { get; set; }
+        public AppUser? AppUser { get; set; }
+    }
+
+    public class DiscountCode : TimeStample
+    {
+        public string Code { get; set; } = null!;
+        public List<Order> Orders { get; set; } = null!;
+        public bool IsActive { get; set; }
+    }
 
 }

@@ -10,7 +10,7 @@
                 <div class="tf-product-info-item">
 
                     <div class="image">
-                        <img src="~/images/products/@Model.ProductVariants?.FirstOrDefault()?.CoverImageName" alt="">
+                        <img id=@("productImageQuickAdd"+Model.Id) src="~/images/products/@Model.ProductVariants?.FirstOrDefault()?.CoverImageName" alt="">
                     </div>
                     <div class="content">
                         <a href="product-detail.html">@Model.Name</a>
@@ -18,7 +18,7 @@
                             <!-- <div class="price-on-sale">$8.00</div>
                             <div class="compare-at-price">$10.00</div>
                             <div class="badges-on-sale"><span>20</span>% OFF</div> -->
-                            <div id=@("productPriceQuickAdd"+Model.Id) class="price">@Model.BasePrice</div>
+                            <div id=@("productPriceQuickAdd"+ Model.Id) class="price">@Model.BasePrice</div>
                         </div>
                     </div>
                 </div>
@@ -31,8 +31,8 @@
                         <div class="variant-picker-values">
                             @foreach (var variant in Model.ProductVariants ?? [])
                             {
-                                <input onchange="setSelectedColor(@variant.Id, @Model.Id, this)" id="values-@variant.ColorName?.ToLower()" type="radio" name="color" checked>
-                              
+                                <input onchange="setSelectedColor(@variant.Id, @Model.Id , '@variant.CoverImageName', this)" id="values-@variant.ColorName?.ToLower()" 
+                                type="radio" name="color" checked>
                                 <label class="hover-tooltip radius-60" for="values-@variant.ColorName?.ToLower()" data-value="@variant.ColorName">
                                     <span class="btn-checkbox bg-color-orange"></span>
                                     <span class="tooltip">@variant.ColorName</span>
@@ -69,7 +69,7 @@
                     <div class="wg-quantity">
                         <span onclick="updateTotalQuickAdd(@Model.Id, -1)" class="btn-quantity minus-btn">-</span>
                         <input type="hidden" value="@Model.Id" id="productIdHiddenInput"/>
-                        <input id=@("productQuantityQuickAdd"+Model.Id) type="text" name="number" value="1">
+                        <input id=@("productQuantityQuickAdd" + Model.Id) min="1" type="number" name="number" value="1">
                         <span onclick="updateTotalQuickAdd(@Model.Id, 1)" class="btn-quantity plus-btn">+</span>
                     </div>
                 </div>
@@ -101,8 +101,4 @@
         </div>
     </div>
 </div>
-<script>
-
-
-</script>
 

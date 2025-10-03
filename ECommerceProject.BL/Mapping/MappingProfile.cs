@@ -47,6 +47,14 @@ namespace ECommerceProject.BL.Mapping
             CreateMap<Language, LanguageViewModel>().ReverseMap();
             CreateMap<Language, LanguageCreateViewModel>().ReverseMap();
             CreateMap<Language, LanguageUpdateViewModel>().ReverseMap();
+
+            CreateMap<Address, AddressViewModel>().ReverseMap();
+            CreateMap<Address, AddressCreateViewModel>().ReverseMap();
+            CreateMap<Address, AddressUpdateViewModel>().ReverseMap();
+
+           // CreateMap<Wishlist, WishlistViewModel>().ReverseMap();
+            //CreateMap<Wishlist, WishlistCreateViewModel>().ReverseMap();
+            //CreateMap<Wishlist, WishlistUpdateViewModel>().ReverseMap();
         }
     }
 }

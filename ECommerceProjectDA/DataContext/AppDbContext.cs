@@ -22,6 +22,12 @@ namespace ECommerceProject.DA.DataContext
         public DbSet<Language> Languages { get; set; } = null!;
         public DbSet<Bio> Bios { get; set; } = null!;
         public DbSet<Social> Socials { get; set; } = null!;
+        public DbSet<UserWishlistItem> UserWishlistItems { get; set; } = null!;
+        public DbSet<Order> Orders { get; set; } = null!;
+        public DbSet<OrderDetail> OrderDetails { get; set; } = null!;
+        public DbSet<DiscountCode> DiscountCodes { get; set; } = null!;
+        public DbSet<Address> Addresses { get; set; } = null!;
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

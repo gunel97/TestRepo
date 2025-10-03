@@ -33,6 +33,11 @@ namespace ECommerceProject.DA
             services.AddScoped<ISocialRepository, SocialRepository>();
             services.AddScoped<ICurrencyRepository, CurrencyRepository>();
             services.AddScoped<ILanguageRepository, LanguageRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
+            services.AddScoped<IUserWishlistItemRepository, UserWishlistItemRepository>();
+            services.AddScoped<IDiscountCodeRepository, DiscountCodeRepository>();
+            services.AddScoped<IAddressRepository, AddressRepository>();
 
             return services;
         }

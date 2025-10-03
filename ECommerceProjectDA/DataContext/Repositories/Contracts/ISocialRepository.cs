@@ -2,5 +2,5 @@
 
 namespace ECommerceProject.DA.DataContext.Repositories.Contracts
 {
-    public interface ISocialRepository :IRepository<Social> { }
+    public interface ISocialRepository : IRepository<Social> { }
 }

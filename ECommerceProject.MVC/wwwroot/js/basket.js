@@ -27,8 +27,8 @@ function loadBasket() {
                                         <div class="price fw-6">$${item.price*item.quantity}</div>
                                         <div class="tf-mini-cart-btns">
                                             <div class="wg-quantity small">
-                                                <span onclick="changeQuantity(${item.productVariantId}, 1)" class="btn-quantity minus-btn">-</span>
-                                                <input type="text" id="productVariantId${item.productVariantId}" name="number" value="${item.quantity}">
+                                                <span onclick="changeQuantity(${item.productVariantId}, -1)" class="btn-quantity minus-btn">-</span>
+                                                <input  type="number" min="1" id="productVariantId${item.productVariantId}" name="number" value="${item.quantity}">
                                                 <span onclick="changeQuantity(${item.productVariantId}, 1)" class="btn-quantity plus-btn">+</span>
                                             </div>
                                             <div onclick="removeFromBasket(${item.productVariantId}, this)" id="removeButtonBasket" class="tf-mini-cart-remove">Remove</div>
@@ -60,7 +60,7 @@ function loadBasketWithData(data) {
                                         <div class="tf-mini-cart-btns">
                                             <div class="wg-quantity small">
                                                 <span onclick="changeQuantity(${item.productVariantId}, -1)" class="btn-quantity minus-btn">-</span>
-                                                <input type="text" name="number" id="productVariantId${item.productVariantId}" value="${item.quantity}">
+                                                <input type="number" min="1" name="number" id="productVariantId${item.productVariantId}" value="${item.quantity}">
                                                 <span onclick="changeQuantity(${item.productVariantId}, 1)" class="btn-quantity plus-btn">+</span>
                                             </div>
                                             <div onclick="removeFromBasket(${item.productVariantId}, this)" id="removeButtonBasket" class="tf-mini-cart-remove">Remove</div>
@@ -71,6 +71,7 @@ function loadBasketWithData(data) {
     basketTotalCountHeader.innerText = data.totalCount;
     basketTotalPrice.innerText = data.totalPrice;
 }
+
 
 document.addEventListener('DOMContentLoaded', function () {
     loadBasket();
@@ -84,13 +85,8 @@ function addToBasket(productIdText, quantityTest) {
     console.log("variant id:")
     console.log(productVariantId);
 
-    /* const quantitySpanTest = document.getElementById(`productQuantityQuickAdd${productId}`);*/
     console.log(quantityTest);
   
-
-
-
-    /*`/basket/changeQuantity?productVariantId=${productVariantId}&change=${change}`,*/
     fetch(`/basket/add?productVariantId=${productVariantId}&quantity=${quantityTest}`, {
         method: 'POST',
         headers: {
@@ -135,13 +131,6 @@ function removeFromBasket(productVariantId, element) {
         })
 }
 
-function setSelectedColor(variantId, productId, element) {
-    if (element.value == false)
-        return;
-    const hiddenInput = document.getElementById(`product${productId}`);
-    hiddenInput.value = variantId;
-}
-
 function changeQuantity(productVariantId, change) {
     const productVariantIdInput = document.getElementById(`productVariantId${productVariantId}`);
     const currentQuantity = parseInt(productVariantIdInput.value);
@@ -150,7 +139,7 @@ function changeQuantity(productVariantId, change) {
         return;
     }
 
-    productVariantIdInput.value = currentQuantity.change;
+    //productVariantIdInput.value = currentQuantity+change;
 
     fetch(`/basket/changeQuantity?productVariantId=${productVariantId}&change=${change}`, {
         method: 'POST'
@@ -163,20 +152,90 @@ function changeQuantity(productVariantId, change) {
         .catch(error => console.error('Error:', error));
 }
 
-function updateTotalQuickAdd(productId, change) {
+function changeQuantityC(productVariantId, change) {
+    console.log("test");
+    const productVariantIdInput = document.getElementById(`productVariantIdC${productVariantId}`);
+    const currentQuantity = parseInt(productVariantIdInput.value);
 
-    const productQuantityQuickAdd = parseInt(document.getElementById(`productQuantityQuickAdd${productId}`).value)+change;
-    const productPriceQuickAdd = parseInt(document.getElementById(`productPriceQuickAdd${productId}`).innerText);
-    const totalPriceQuickAdd = document.getElementById(`totalPriceQuickAdd${productId}`);
+    if (currentQuantity + change < 1) {
+        return;
+    }
 
-    const result = productQuantityQuickAdd*productPriceQuickAdd;
+    //productVariantIdInput.value = currentQuantity+change;
 
-    totalPriceQuickAdd.textContent="$ "+result.toFixed(2);
+    fetch(`/basket/changeQuantityC?productVariantId=${productVariantId}&change=${change}`, {
+        method: 'POST'
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            loadBasketWithData(data.basketViewModel);
+        })
+        .catch(error => console.error('Error:', error));
 }
+
+function updateTotalQuickAdd(productIdText, change) {
+    const productQuantityQuickAdd = document.getElementById(`productQuantityQuickAdd${productIdText}`);
+
+    let prevQuantity = parseInt(productQuantityQuickAdd.value);
+    console.log(prevQuantity);
+    if (prevQuantity + change == 0) {
+        return;
+    }
+    let currentQuantity = prevQuantity + change;
+    console.log(currentQuantity);
+
+    const productPriceQuickAdd = parseInt(document.getElementById(`productPriceQuickAdd${productIdText}`).innerText);
+    console.log(productPriceQuickAdd);
+    const totalPriceQuickAdd = document.getElementById(`totalPriceQuickAdd${productIdText}`);
+
+    const result = currentQuantity*productPriceQuickAdd;
+
+    totalPriceQuickAdd.textContent = "$ " + result.toFixed(2);
+    productPriceQuickAdd.textContent = currentQuantity;
+
+    setCurrentQuantity(productIdText, currentQuantity);
+}
+
+//function setCurrentQuantity(productIdText, currentQuantity) {
+//    console.log("adf");
+//    const testInput = document.getElementById(`productPriceQuickAdd${productIdText}`);
+//    testInput.value = parseInt(currentQuantity);
+//}
+
 
 function getQuantity(productId, productIdText) {
-    var quantityTest = parseInt(document.getElementById(`productQuantityQuickAdd${productId}`).value);
-    console.log(quantityTest);
-    addToBasket(productIdText, quantityTest);
+    var quantity = parseInt(document.getElementById(`productQuantityQuickAdd${productId}`).value);
+    console.log(quantity);
+    addToBasket(productIdText, quantity);
 }
 
+function getQuantityD(productId, productIdText) {
+    var quantity = parseInt(document.getElementById(`productQuantityDetails${productId}`).value);
+    console.log(quantity);
+    addToBasket(productIdText, quantity);
+}
+
+function setSelectedColor(variantId, productId, imageName , element) {
+    const productImageQuickAdd = document.getElementById(`productImageQuickAdd${productId}`);
+    console.log(imageName);
+    productImageQuickAdd.src = `/images/products/${imageName}`;
+
+    if (element.value == false)
+        return;
+        return;
+    const hiddenInput = document.getElementById(`product${productId}`);
+    hiddenInput.value = variantId;
+}
+
+function setSelectedColorD(variantId, productId, element) {
+    console.log("test");
+    if (element.value == false)
+        return;
+
+    const hiddenInput = document.getElementById(`productD${productId}`);
+    console.log("set colorda variant id:")
+    console.log(variantId)
+
+    hiddenInput.value = variantId;
+}

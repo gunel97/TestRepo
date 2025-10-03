@@ -1,5 +1,8 @@
 ﻿using ECommerceProject.BL.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System.Threading.Tasks;
 
 namespace ECommerceProject.MVC.Controllers
@@ -46,6 +49,57 @@ namespace ECommerceProject.MVC.Controllers
                 success = true,
                 basketViewModel
             });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeQuantityC(int productVariantId, int change)
+        {
+            var basketViewModel = await _basketManager.ChangeQuantityAsync(productVariantId, change);
+            var cartHtml = await RenderPartialViewToString("_CartPartialView", basketViewModel);
+
+            return Json(new
+            {
+                success = true,
+                basketViewModel,
+                cartHtml
+            });
+        }
+
+        public async Task<IActionResult> Checkout()
+        {
+            var model = await _basketManager.GetBasketAsync();
+            return View(model);
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var model = await _basketManager.GetBasketAsync();
+            return View(model);
+        }
+
+        private async Task<string> RenderPartialViewToString(string viewName, object model)
+        {
+            ViewData.Model = model;
+            using var writer = new StringWriter();
+
+            var viewEngine = HttpContext.RequestServices.GetService<ICompositeViewEngine>();
+            var viewResult = viewEngine.FindView(ControllerContext, viewName, false);
+
+            if (!viewResult.Success)
+                throw new InvalidOperationException($"Could not found view {viewName}");
+
+            var viewContext = new ViewContext(
+                ControllerContext,
+                viewResult.View,
+                ViewData,
+                TempData,
+                writer,
+                new HtmlHelperOptions()
+                );
+
+            await viewResult.View.RenderAsync( viewContext );
+
+            return writer.ToString();
         }
     }
 }
