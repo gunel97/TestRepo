@@ -3,9 +3,12 @@ using ECommerceProject.BL.Services.Contracts;
 using ECommerceProject.BL.ViewModels;
 using ECommerceProject.DA.DataContext.Entities;
 using ECommerceProject.DA.DataContext.Repositories.Contracts;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+using System.Security.Claims;
 
 namespace ECommerceProject.BL.Services
 {
@@ -13,33 +16,26 @@ namespace ECommerceProject.BL.Services
         CrudManager<WishlistItem, WishlistItemViewModel, WishlistItemCreateViewModel, WishlistItemUpdateViewModel>,
         IWishlistItemService
     {
-        private readonly IProductService _productService;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public WishlistItemManager(IRepository<WishlistItem> repository, IMapper mapper, IProductService productService)
+        public WishlistItemManager(IRepository<WishlistItem> repository, IMapper mapper, IHttpContextAccessor httpContextAccessor, UserManager<AppUser> userManager)
             : base(repository, mapper)
         {
-            _productService = productService;
+            _httpContextAccessor = httpContextAccessor;
+            _userManager = userManager;
         }
 
-        public async Task<ProductViewModel> GetProductAsync(int id)
-        {
-            var model = await _productService.GetByIdAsync(id);
-
-            if (model == null)
-                return null!;
-
-            return model;
-
-        }
-
-        public async Task<WishlistItem> CheckProduct(string userId, int id)
+        public async Task<WishlistItemViewModel> CheckProduct(string userId, int id)
         {
             var item = await Repository.GetAsync(predicate: x=>x.AppUserId == userId && x.ProductId==id);
 
             if (item == null)
                 return null!;
 
-            return item; 
+            var itemViewModel = Mapper.Map<WishlistItemViewModel>(item);
+
+            return itemViewModel; 
         }
 
     }

@@ -18,14 +18,14 @@
                     <div class="grid-layout wrapper-shop" data-grid="grid-3">
                         @foreach (var item in Model)
                         {
-                        <partial name="_ProductWishlistPartial" model="@item.Product"></partial>   
+                            <partial name="_ProductWishlistPartial" model="@item.Product"></partial>
                         }
                     </div>
                 </div>
             </div>
         </div>
     </div>
-     <!-- modal quick_add -->
+    <!-- modal quick_add -->
     @foreach (var item in Model)
     {
         <partial name="_ProductQuickAddModalPartial" model="@item.Product" />
@@ -37,7 +37,7 @@
         <partial name="_ProductQuickViewModalPartial" model="@item.Product"></partial>
     }
 
-    <!-- /modal quick_view --> 
+    <!-- /modal quick_view -->
 
 </section>
 <!-- page-cart -->

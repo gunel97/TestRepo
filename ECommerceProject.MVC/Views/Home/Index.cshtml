@@ -488,7 +488,7 @@
 <script>
     function addToWishlist(productId){
         console.log(productId);
-        fetch(`/account/addwishlist/${productId}`, {
+        fetch(`/wishlist/add/${productId}`, {
             method: 'POST'
         })
         .then(response=>{

@@ -18,14 +18,12 @@
     </div>
 </section>
 <!-- /Section Product -->
-
 <!-- modal quick_add -->
 @foreach (var item in Model)
 {
     <partial name="_ProductQuickAddModalPartial" model="@item.Product" />
 }
 <!-- /modal quick_add -->
-
 <!-- modal quick_view -->
 @foreach (var item in Model)
 {
