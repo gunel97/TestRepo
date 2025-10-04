@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ECommerceProject.DA.DataContext.Entities;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ECommerceProject.BL.ViewModels
@@ -16,8 +17,8 @@ namespace ECommerceProject.BL.ViewModels
         public string? AdditionalInformation { get; set; }
         public decimal BasePrice { get; set; }
         public string? CategoryName { get; set; }
-        public int CurrentVariantId { get; set; } 
         public List<ProductVariantViewModel> ProductVariants { get; set; } = [];
+        public List<int> WishlistItemIds { get; set; } = [];
                 
     }
 

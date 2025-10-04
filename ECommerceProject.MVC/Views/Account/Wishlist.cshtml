@@ -1,0 +1,49 @@
+﻿@model List<WishlistItemViewModel>
+<!-- page-title -->
+<div class="tf-page-title">
+    <div class="container-full">
+        <div class="heading text-center">Wishlist</div>
+    </div>
+</div>
+<!-- /page-title -->
+<!-- page-cart -->
+<section class="flat-spacing-11">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <partial name="_AccountMenuPartial"></partial>
+            </div>
+            <div class="col-lg-9">
+                <div class="my-account-content account-wishlist">
+                    <div class="grid-layout wrapper-shop" data-grid="grid-3">
+                        @foreach (var item in Model)
+                        {
+                        <partial name="_ProductWishlistPartial" model="@item.Product"></partial>   
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     <!-- modal quick_add -->
+    @foreach (var item in Model)
+    {
+        <partial name="_ProductQuickAddModalPartial" model="@item.Product" />
+    }
+    <!-- /modal quick_add -->
+    <!-- modal quick_view -->
+    @foreach (var item in Model)
+    {
+        <partial name="_ProductQuickViewModalPartial" model="@item.Product"></partial>
+    }
+
+    <!-- /modal quick_view --> 
+
+</section>
+<!-- page-cart -->
+
+<div class="btn-sidebar-account">
+    <button data-bs-toggle="offcanvas" data-bs-target="#mbAccount" aria-controls="offcanvas">
+        <i class="icon icon-sidebar-2"></i>
+    </button>
+</div>

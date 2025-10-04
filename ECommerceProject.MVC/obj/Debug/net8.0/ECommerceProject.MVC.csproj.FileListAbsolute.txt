@@ -266,6 +266,7 @@ C:\Users\Lenovo\source\repos\ECommerceProject\ECommerceProject.MVC\obj\Debug\net
 C:\Users\Lenovo\source\repos\ECommerceProject\ECommerceProject.MVC\obj\Debug\net8.0\ECommerceProject.MVC.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Lenovo\source\repos\ECommerceProject\ECommerceProject.MVC\obj\Debug\net8.0\ECommerceProject.MVC.RazorAssemblyInfo.cache
 C:\Users\Lenovo\source\repos\ECommerceProject\ECommerceProject.MVC\obj\Debug\net8.0\ECommerceProject.MVC.RazorAssemblyInfo.cs
+C:\Users\Lenovo\source\repos\ECommerceProject\ECommerceProject.MVC\obj\Debug\net8.0\ECommerceProject.MVC.sourcelink.json
 C:\Users\Lenovo\source\repos\ECommerceProject\ECommerceProject.MVC\obj\Debug\net8.0\rjimswa.dswa.cache.json
 C:\Users\Lenovo\source\repos\ECommerceProject\ECommerceProject.MVC\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
 C:\Users\Lenovo\source\repos\ECommerceProject\ECommerceProject.MVC\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
@@ -283,4 +284,3 @@ C:\Users\Lenovo\source\repos\ECommerceProject\ECommerceProject.MVC\obj\Debug\net
 C:\Users\Lenovo\source\repos\ECommerceProject\ECommerceProject.MVC\obj\Debug\net8.0\ECommerceProject.MVC.pdb
 C:\Users\Lenovo\source\repos\ECommerceProject\ECommerceProject.MVC\obj\Debug\net8.0\ECommerceProject.MVC.genruntimeconfig.cache
 C:\Users\Lenovo\source\repos\ECommerceProject\ECommerceProject.MVC\obj\Debug\net8.0\ref\ECommerceProject.MVC.dll
-C:\Users\Lenovo\source\repos\ECommerceProject\ECommerceProject.MVC\obj\Debug\net8.0\ECommerceProject.MVC.sourcelink.json

@@ -2,5 +2,5 @@
 
 namespace ECommerceProject.DA.DataContext.Repositories.Contracts
 {
-    public interface IUserWishlistItemRepository : IRepository<UserWishlistItem> { }
+    public interface IWishlistItemRepository : IRepository<WishlistItem> { }
 }

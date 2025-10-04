@@ -107,31 +107,31 @@
 
   /* Button Quantity
   -------------------------------------------------------------------------------------*/
-  var btnQuantity = function () {
-    $(".minus-btn").on("click", function (e) {
-      e.preventDefault();
-      var $this = $(this);
-      var $input = $this.closest("div").find("input");
-      var value = parseInt($input.val());
+  //var btnQuantity = function () {
+  //  $(".minus-btn").on("click", function (e) {
+  //    e.preventDefault();
+  //    var $this = $(this);
+  //    var $input = $this.closest("div").find("input");
+  //    var value = parseInt($input.val());
 
-      if (value > 1) {
-        value = value - 1;
-      }
-      $input.val(value);
-    });
+  //    if (value > 1) {
+  //      value = value - 1;
+  //    }
+  //    $input.val(value);
+  //  });
 
-    $(".plus-btn").on("click", function (e) {
-      e.preventDefault();
-      var $this = $(this);
-      var $input = $this.closest("div").find("input");
-      var value = parseInt($input.val());
+    //$(".plus-btn").on("click", function (e) {
+    //  e.preventDefault();
+    //  var $this = $(this);
+    //  var $input = $this.closest("div").find("input");
+    //  var value = parseInt($input.val());
 
-      if (value > -1) {
-        value = value + 1;
-      }
-      $input.val(value);
-    });
-  };
+    //  if (value > -1) {
+    //    value = value + 1;
+    //  }
+    //  $input.val(value);
+    //});
+  //};
 
   /* Delete file 
   -------------------------------------------------------------------------------------*/
@@ -940,7 +940,7 @@ var totalVariant = function () {
   // Dom Ready
   $(function () {
     selectImages();
-    btnQuantity();
+//btnQuantity();
     deleteFile();
     goTop();
     closeAnnouncement();

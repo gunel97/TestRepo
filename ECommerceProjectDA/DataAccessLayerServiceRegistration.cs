@@ -35,7 +35,7 @@ namespace ECommerceProject.DA
             services.AddScoped<ILanguageRepository, LanguageRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
-            services.AddScoped<IUserWishlistItemRepository, UserWishlistItemRepository>();
+            services.AddScoped<IWishlistItemRepository, WishlistItemRepository>();
             services.AddScoped<IDiscountCodeRepository, DiscountCodeRepository>();
             services.AddScoped<IAddressRepository, AddressRepository>();
 

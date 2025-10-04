@@ -20,12 +20,12 @@ namespace ECommerceProject.DA.DataContext.Entities
         public bool IsDeleted { get; set; }
     }
 
-    public class UserWishlistItem : TimeStample
+    public class WishlistItem : TimeStample
     {
         public int ProductId { get; set; }
-        public Product? Product { get; set; } 
+        public Product Product { get; set; } = null!; 
         public string? AppUserId { get; set; }
-        public AppUser? AppUser { get; set; }
+        public AppUser AppUser { get; set; } = null!;
     }
 
     public class Language : TimeStample
@@ -74,7 +74,7 @@ namespace ECommerceProject.DA.DataContext.Entities
         public int CategoryId { get; set; }
         public Category? Category { get; set; }
         public List<ProductVariant> ProductVariants { get; set; } = [];
-        public List<UserWishlistItem> UserWishlistItems { get; set; } = [];
+        public List<WishlistItem> WishlistItems { get; set; } = [];
     }
     public class Color:TimeStample
     {
@@ -107,7 +107,7 @@ namespace ECommerceProject.DA.DataContext.Entities
     {
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
-        public List<UserWishlistItem> UserWishlistItems = [];
+        public List<WishlistItem> WishlistItems = [];
         public List<Order> Orders { get; set; } = [];
         public List<Address> Addresses { get; set; } = [];
     }

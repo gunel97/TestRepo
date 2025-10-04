@@ -52,9 +52,9 @@ namespace ECommerceProject.BL.Mapping
             CreateMap<Address, AddressCreateViewModel>().ReverseMap();
             CreateMap<Address, AddressUpdateViewModel>().ReverseMap();
 
-           // CreateMap<Wishlist, WishlistViewModel>().ReverseMap();
-            //CreateMap<Wishlist, WishlistCreateViewModel>().ReverseMap();
-            //CreateMap<Wishlist, WishlistUpdateViewModel>().ReverseMap();
+            CreateMap<WishlistItem, WishlistItemViewModel>().ReverseMap();
+            CreateMap<WishlistItem, WishlistItemCreateViewModel>().ReverseMap();
+            CreateMap<WishlistItem, WishlistItemUpdateViewModel>().ReverseMap();
         }
     }
 }

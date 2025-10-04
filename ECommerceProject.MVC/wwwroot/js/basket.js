@@ -135,6 +135,7 @@ function changeQuantity(productVariantId, change) {
     const productVariantIdInput = document.getElementById(`productVariantId${productVariantId}`);
     const currentQuantity = parseInt(productVariantIdInput.value);
 
+    console.log(currentQuantity);
     if (currentQuantity + change < 1) {
         return;
     }
@@ -189,20 +190,14 @@ function updateTotalQuickAdd(productIdText, change) {
     console.log(productPriceQuickAdd);
     const totalPriceQuickAdd = document.getElementById(`totalPriceQuickAdd${productIdText}`);
 
-    const result = currentQuantity*productPriceQuickAdd;
 
+    const result = currentQuantity * productPriceQuickAdd;
+    productQuantityQuickAdd.value = currentQuantity;
     totalPriceQuickAdd.textContent = "$ " + result.toFixed(2);
     productPriceQuickAdd.textContent = currentQuantity;
 
-    setCurrentQuantity(productIdText, currentQuantity);
+    //setCurrentQuantity(productIdText, currentQuantity);
 }
-
-//function setCurrentQuantity(productIdText, currentQuantity) {
-//    console.log("adf");
-//    const testInput = document.getElementById(`productPriceQuickAdd${productIdText}`);
-//    testInput.value = parseInt(currentQuantity);
-//}
-
 
 function getQuantity(productId, productIdText) {
     var quantity = parseInt(document.getElementById(`productQuantityQuickAdd${productId}`).value);

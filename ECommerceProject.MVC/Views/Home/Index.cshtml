@@ -236,7 +236,7 @@
                                             <span class="icon icon-bag"></span>
                                             <span class="tooltip">Quick Add</span>
                                         </a>
-                                        <a href="#" class="box-icon bg_white wishlist btn-icon-action">
+                                        <a onclick="addToWishlist(@product.Id)" class="box-icon bg_white wishlist btn-icon-action">
                                             <span class="icon icon-heart"></span>
                                             <span class="tooltip">Add to Wishlist</span>
                                             <span class="icon icon-delete"></span>
@@ -485,3 +485,25 @@
 </section>
 <!-- /Testimonial -->
 
+<script>
+    function addToWishlist(productId){
+        console.log(productId);
+        fetch(`/account/addwishlist/${productId}`, {
+            method: 'POST'
+        })
+        .then(response=>{
+            if(response.ok){
+                console.log("ok");
+                alert('product added to wishlist');
+            }
+            else
+            {
+                alert('Failed');
+            }
+        })
+        .catch(error=>{
+            console.error('Error:', error);
+            alert('An error occured');
+        });
+    }
+</script>
