@@ -26,11 +26,12 @@ namespace ECommerceProject.BL.Services
         public async Task<HomeViewModel> GetHomeViewModelAsync()
         {
             var categories = await _categoryService.GetAllAsync(predicate:x=>!x.IsDeleted);
-            var products = await _productService.GetAllAsync(predicate: x => !x.IsDeleted
-              , include: x => x
-              .Include(pv => pv.ProductVariants).ThenInclude(i => i.ProductImages)
-              .Include(pv => pv.ProductVariants).ThenInclude(c => c.Color!)
-            );
+            //var products = await _productService.GetAllAsync(predicate: x => !x.IsDeleted
+            //  , include: x => x
+            //  .Include(pv => pv.ProductVariants).ThenInclude(i => i.ProductImages)
+            //  .Include(pv => pv.ProductVariants).ThenInclude(c => c.Color!)
+            //);
+            var products = await _productService.GetAllAsync();
 
             var homeViewModel = new HomeViewModel
             {

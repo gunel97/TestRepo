@@ -27,7 +27,6 @@
                 <li class="tf-view-layout-switch sw-layout-list list-layout" data-value-layout="list">
                     <div class="item"><span class="icon icon-list"></span></div>
                 </li>
-                <a href="c:\users\lenovo\source\repos\ecommerceproject\ecommerceproject.mvc\views\shop\index.cshtml">c:\users\lenovo\source\repos\ecommerceproject\ecommerceproject.mvc\views\shop\index.cshtml</a>
                 <li class="tf-view-layout-switch sw-layout-2" data-value-layout="tf-col-2">
                     <div class="item"><span class="icon icon-grid-2"></span></div>
                 </li>
@@ -140,11 +139,9 @@
                                    class="box-icon quick-add style-3 hover-tooltip">
                                     <span class="icon icon-bag"></span><span class="tooltip">Quick add</span>
                                 </a>
-                                <a href="#" class="box-icon wishlist style-3 hover-tooltip">
-                                    <span class="icon icon-heart"></span> <span class="tooltip">
-                                        Add to
-                                        Wishlist
-                                    </span>
+                                <a id=@("productWishlistIcon" + product.Id) class="box-icon bg_white wishlist btn-icon-action">
+                                    <span onclick="addToWishlist(@product.Id)" class="icon icon-heart"></span>
+                                    <span class="tooltip">Add to Wishlist</span>
                                 </a>
                                 <a href="#compare" data-bs-toggle="offcanvas"
                                    class="box-icon compare style-3 hover-tooltip">

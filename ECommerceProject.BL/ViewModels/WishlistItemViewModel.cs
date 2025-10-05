@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace ECommerceProject.BL.ViewModels
 {
+    public class WishlistItemsViewModel
+    {
+        public List<WishlistItemViewModel> Items { get; set; } = [];
+        public int Count { get; set; }
+    }
+
     public class WishlistItemViewModel
     {
         public int Id { get; set; }
@@ -19,7 +25,7 @@ namespace ECommerceProject.BL.ViewModels
         public int Id { get; set; }
         public required string AppUserId { get; set; }
         public required int ProductId { get; set; }
-
+        public int Count { get; set; }
     }
 
     public class WishlistItemUpdateViewModel

@@ -1,4 +1,4 @@
-﻿@model List<WishlistItemViewModel>
+﻿@model WishlistItemsViewModel
 
 <div class="tf-page-title">
     <div class="container-full">
@@ -10,7 +10,7 @@
 <section class="flat-spacing-2">
     <div class="container">
         <div class="grid-layout wrapper-shop" data-grid="grid-4">
-            @foreach (var item in Model)
+            @foreach (var item in Model.Items)
             {
                 <partial name="_ProductWishlistPartial" model="@item.Product" />
             }
@@ -19,13 +19,13 @@
 </section>
 <!-- /Section Product -->
 <!-- modal quick_add -->
-@foreach (var item in Model)
+@foreach (var item in Model.Items)
 {
     <partial name="_ProductQuickAddModalPartial" model="@item.Product" />
 }
 <!-- /modal quick_add -->
 <!-- modal quick_view -->
-@foreach (var item in Model)
+@foreach (var item in Model.Items)
 {
     <partial name="_ProductQuickViewModalPartial" model="@item.Product"></partial>
 }

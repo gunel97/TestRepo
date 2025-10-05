@@ -1827,5 +1827,6 @@ wwwroot\js\rangle-slider.html
 wwwroot\js\shop.js
 wwwroot\js\sibforms.html
 wwwroot\js\swiper-bundle.min.js
+wwwroot\js\wishlist.js
 wwwroot\js\wow.min.js
 wwwroot\js\zoom.js

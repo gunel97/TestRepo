@@ -312,13 +312,13 @@
 
   /* button wishlist
   -------------------------------------------------------------------------*/
-  var btnWishlist = function () {
-    if ($(".btn-icon-action").length) {
-      $(".btn-icon-action").on("click", function (e) {
-        $(this).toggleClass("active");
-      });
-    }
-  };
+  //var btnWishlist = function () {
+  //  if ($(".btn-icon-action").length) {
+  //    $(".btn-icon-action").on("click", function (e) {
+  //      $(this).toggleClass("active");
+  //    });
+  //  }
+  //};
 
   /* button loading
   -------------------------------------------------------------------------*/
@@ -952,7 +952,7 @@ var totalVariant = function () {
     swatchColor();
     changeValue();
     footer();
-    btnWishlist();
+    //btnWishlist();
     btnLoading();
     variantPicker();
     itemCheckbox();

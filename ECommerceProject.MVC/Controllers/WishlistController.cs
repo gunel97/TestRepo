@@ -21,7 +21,7 @@ namespace ECommerceProject.MVC.Controllers
             _userManager = userManager;
         }
         [Authorize]
-        public async Task<IActionResult> Wishlist()
+        public async Task<IActionResult> Index()
         {
             var items = await GetWishlist();
 
@@ -51,21 +51,18 @@ namespace ECommerceProject.MVC.Controllers
             if (user == null)
                 return BadRequest();
 
-            //var item = _wishlistItemService.CheckProduct(user.Id, id);
-            //if (item != null)
-            //    return RedirectToAction("Index");
-
             var wishlistItems = await GetWishlist();
 
-            var currentItem = wishlistItems.FirstOrDefault(predicate: x=>x.AppUserId==user.Id && x.ProductId==id);
+            var currentItem = wishlistItems.Items.FirstOrDefault(predicate: x=> x.ProductId==id);
 
             if (currentItem != null)
                 return NoContent();
 
+
             var createViewModel = new WishlistItemCreateViewModel
             {
                 AppUserId = user.Id,
-                ProductId = id
+                ProductId = id,
             };
 
             await _wishlistItemService.CreateAsync(createViewModel);
@@ -78,20 +75,32 @@ namespace ECommerceProject.MVC.Controllers
         public async Task<IActionResult> Remove(int id)
         {
             var items = await GetWishlist();
-
-            var currentItem = items.FirstOrDefault(x => x.ProductId == id);
+            var product = await _productService.GetByIdAsync(id);
+            var currentItem = items.Items.FirstOrDefault(x => x.ProductId == id);
             if (currentItem == null)
                 return BadRequest();
+
 
             var removed = await _wishlistItemService.DeleteAsync(currentItem.Id);
 
             if (removed)
-                return NoContent();
+            {
+                product!.IsInWishlist = false;
+                return NoContent();   
+            }
             else
                 return RedirectToAction("Index");
         }
 
-        private async Task<List<WishlistItemViewModel>> GetWishlist()
+        public async Task<IActionResult> GetWishlistJ()
+        {
+            var model = await GetWishlist();
+
+            return Json(model);
+        }
+
+        [Authorize]
+        private async Task<WishlistItemsViewModel> GetWishlist()
         {
             var username = User.Identity!.Name ?? "";
 
@@ -105,7 +114,16 @@ namespace ECommerceProject.MVC.Controllers
                 .Include(p => p.Product).ThenInclude(pv => pv.ProductVariants).ThenInclude(c => c.Color!)
                 .Include(p => p.Product).ThenInclude(pv => pv.ProductVariants).ThenInclude(i => i.ProductImages));
 
-            return items.ToList();
+            foreach(var item in items)
+            {
+                item.Product!.IsInWishlist = true;
+            }
+
+            var itemsT = new WishlistItemsViewModel();
+            itemsT.Items = items.ToList();
+            itemsT.Count=items.ToList().Count;
+
+            return itemsT ;
         }
     }
 }

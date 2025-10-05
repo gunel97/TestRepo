@@ -20,7 +20,7 @@
             }
         </a>
         <div class="list-product-btn type-wishlist">
-            <a onclick="deleteItemFromWishlist(@Model.Id, this)" class="box-icon bg_white wishlist">
+            <a onclick="deleteItemFromWishlistPages(@Model.Id, this)" class="box-icon bg_white wishlist">
                 <span class="tooltip">Remove Wishlist</span>
                 <span class="icon icon-delete"></span>
             </a>
@@ -61,15 +61,3 @@
         </ul>
     </div>
 </div>
-
-
-<script>
-function deleteItemFromWishlist(id, element){
-    fetch(`/account/removefromwishlist/${id}`, {
-    method:'POST'})
-    .then(response=>response.text())
-    .then(data=>{
-        element.parentNode.parentNode.parentNode.remove();
-    });
-}
-</script>
