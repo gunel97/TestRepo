@@ -17,7 +17,7 @@
                  src="~/images/products/@Model.ProductVariants[0].CoverImageName" alt="image-product">
         }
     </a>
-    <div class="list-product-btn absolute-2">
+     <div class="list-product-btn absolute-2">
         <a href="#quick_add" data-bs-toggle="modal"
            data-bs-target="#quick_add_@Model.Id"
            class="box-icon bg_white quick-add tf-btn-loading">
@@ -39,7 +39,7 @@
             <span class="icon icon-view"></span>
             <span class="tooltip">Quick View</span>
         </a>
-    </div>
+    </div> 
 </div>
 <div class="card-product-info">
     <a asp-controller="product" asp-action="details" asp-route-id="@Model.DetailsUrl" class="title link">@Model.Name</a>

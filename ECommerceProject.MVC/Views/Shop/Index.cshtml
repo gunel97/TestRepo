@@ -24,7 +24,7 @@
                 </a>
             </div>
             <ul class="tf-control-layout d-flex justify-content-center">
-                <li class="tf-view-layout-switch sw-layout-list list-layout" data-value-layout="list">
+                <li onclick="loadWishlistShopList()" class="tf-view-layout-switch sw-layout-list list-layout" data-value-layout="list">
                     <div class="item"><span class="icon icon-list"></span></div>
                 </li>
                 <li class="tf-view-layout-switch sw-layout-2" data-value-layout="tf-col-2">
@@ -133,13 +133,13 @@
                                 <span class="size-item">L</span>
                                 <span class="size-item">XL</span>
                             </div>
-                            <div class="list-product-btn">
+                             <div class="list-product-btn">
                                 <a href="#quick_add" data-bs-toggle="modal"
                                    data-bs-target="#quick_add_@product.Id"
                                    class="box-icon quick-add style-3 hover-tooltip">
                                     <span class="icon icon-bag"></span><span class="tooltip">Quick add</span>
                                 </a>
-                                <a id=@("productWishlistIcon" + product.Id) class="box-icon bg_white wishlist btn-icon-action">
+                                <a id=@("productWishlistIconShopList" + product.Id) class="box-icon bg_white wishlist btn-icon-action">
                                     <span onclick="addToWishlist(@product.Id)" class="icon icon-heart"></span>
                                     <span class="tooltip">Add to Wishlist</span>
                                 </a>
@@ -154,7 +154,7 @@
                                    class="box-icon bg_white quickview tf-btn-loading quick-view-btn">
                                     <span class="icon icon-view"></span><span class="tooltip">Quick view</span>
                                 </a>
-                            </div>
+                            </div> 
                         </div>
                     </div>
                 }

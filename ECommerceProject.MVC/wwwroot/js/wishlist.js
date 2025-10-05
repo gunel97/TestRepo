@@ -1,5 +1,6 @@
 ﻿
 const wishlistCount = document.getElementById('wishlistCount');
+
 function loadWishlist() {
     console.log("loadwishlist");
     
@@ -12,33 +13,65 @@ function loadWishlist() {
         .then(response => response.json())
         .then(data => {
             console.log(data);
+            if (data == null) {
+                return;
+            }
+            else {
+                data.items.forEach(
+                    item => {
 
-            data.items.forEach(
-                item => {
-                    if (item.appUserId == null) {
-                        alert('login');
-                        return;
-                    }
-                    console.log("wishlist item product id");
-                    console.log(item.product.id);
-                    const productWishlistIcon = document.getElementById(`productWishlistIcon${item.product.id}`);
+                        console.log("wishlist item product id");
+                        console.log(item.product.id);
+                        const productWishlistIcon = document.getElementById(`productWishlistIcon${item.product.id}`);
 
-                    if (item.product.isInWishlist) {
-                        productWishlistIcon.innerHTML = `
+                        if (item.product.isInWishlist) {
+                            productWishlistIcon.innerHTML = `
                         <span onclick="removeFromWishlistHome(${item.product.id})" class="icon icon-delete"></span>
                         <span class="tooltip">Remove from Wishlist</span>
                         `;
+                        }
                     }
-                    //else {
-                    //    productWishlistIcon.innerHTML = `
-                    //    <span onclick="addToWishlist(${item.product.id})" class="icon icon-heart"></span>
-                    //    <span class="tooltip">Add to Wishlist</span>
-                    //                        `;
-                    //}
-                }
-            )
+                )
+            }
             
             wishlistCount.innerText =data.count ;
+        });
+}
+
+function loadWishlistShopList() {
+    console.log("loadwishlist");
+
+    fetch('/wishlist/getwishlistj', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if (data == null) {
+                return;
+            }
+            else {
+                data.items.forEach(
+                    item => {
+
+                        console.log("wishlist item product id");
+                        console.log(item.product.id);
+                        const productWishlistIconShopList = document.getElementById(`productWishlistIconShopList${item.product.id}`);
+
+                        if (item.product.isInWishlist) {
+                            productWishlistIconShopList.innerHTML = `
+                        <span onclick="removeFromWishlistHome(${item.product.id})" class="icon icon-delete"></span>
+                        <span class="tooltip">Remove from Wishlist</span>
+                        `;
+                        }
+                    }
+                )
+            }
+
+            wishlistCount.innerText = data.count;
         });
 }
 
