@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ECommerceProject.BL.Services;
 using ECommerceProject.BL.ViewModels;
 using ECommerceProject.DA.DataContext.Entities;
 using System;
@@ -55,6 +56,14 @@ namespace ECommerceProject.BL.Mapping
             CreateMap<WishlistItem, WishlistItemViewModel>().ReverseMap();
             CreateMap<WishlistItem, WishlistItemCreateViewModel>().ReverseMap();
             CreateMap<WishlistItem, WishlistItemUpdateViewModel>().ReverseMap();
+
+            CreateMap<Order, OrderViewModel>().ReverseMap();
+            CreateMap<Order, OrderCreateViewModel>().ReverseMap();
+            CreateMap<Order, OrderUpdateViewModel>().ReverseMap();
+
+            CreateMap<OrderDetail, OrderDetailViewModel>().ReverseMap();
+            CreateMap<OrderDetail, OrderDetailCreateViewModel>().ReverseMap();
+            CreateMap<OrderDetail, OrderDetailUpdateViewModel>().ReverseMap();
         }
     }
 }

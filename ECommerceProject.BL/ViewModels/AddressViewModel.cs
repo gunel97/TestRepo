@@ -18,6 +18,7 @@ namespace ECommerceProject.BL.ViewModels
         public string? PostalCode { get; set; } 
         public string? Phone { get; set; } 
         public string? AppUserId { get; set; }
+        public bool IsDefault {  get; set; }
     }
 
     public class AddressCreateViewModel
@@ -31,6 +32,7 @@ namespace ECommerceProject.BL.ViewModels
         public string PostalCode { get; set; } = null!;
         public string Phone { get; set; } = null!;
         public string? AppUserId { get; set; }
+        public bool IsDefault { get; set; }
     }
 
     public class AddressUpdateViewModel
@@ -45,5 +47,6 @@ namespace ECommerceProject.BL.ViewModels
         public string? PostalCode { get; set; }
         public string? Phone { get; set; }
         public string? AppUserId { get; set; }
+        public bool IsDefault { get; set; }
     }
 }

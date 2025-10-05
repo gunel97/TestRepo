@@ -20,7 +20,7 @@
                             Add a new
                             address
                         </button>
-                        <form asp-controller="address" asp-action="add" class="show-form-address wd-form-address" id="formnewAddress">
+                        <form method="post" asp-controller="address" asp-action="add" class="show-form-address wd-form-address" id="formnewAddress">
                             <div class="title">Add a new address</div>
                             <div class="box-field grid-2-lg">
                                 <div class="tf-field style-1">
@@ -164,13 +164,20 @@
                                     <label class="tf-field-label fw-4 text_black-2" for="phone">Phone</label>
                                 </div>
                             </div>
-                            <div class="box-field text-start">
+                   @*          <div class="box-field text-start">
                                 <div class="box-checkbox fieldset-radio d-flex align-items-center gap-8">
-                                    <input type="checkbox" id="check-new-address" class="tf-check">
+                                    <input type="checkbox" id="IsDefault" class="tf-check" value="true" name="IsDefault">
                                     <label for="check-new-address" class="text_black-2 fw-4">
                                         Set as default
                                         address
                                     </label>
+                                </div>
+                            </div> *@
+                            <div class="box-field">
+                                <div class="tf-field style-1">
+                                    <input type="checkbox" class="tf-field-input tf-input" placeholder=""
+                                           id="IsDefault" name="IsDefault">
+                                    <label class="tf-field-label fw-4 text_black-2" for="IsDefault">Set as default address</label>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center justify-content-center gap-20">

@@ -107,7 +107,7 @@ namespace ECommerceProject.DA.DataContext.Entities
     {
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
-        public List<WishlistItem> WishlistItems = [];
+        public List<WishlistItem> WishlistItems { get; set; } = [];
         public List<Order> Orders { get; set; } = [];
         public List<Address> Addresses { get; set; } = [];
     }
@@ -122,6 +122,23 @@ namespace ECommerceProject.DA.DataContext.Entities
         public bool GiftWrap { get; set; }
         public string Note { get; set; } = null!;
         public string Email { get; set; } = null!;
+        public OrderStatus OrderStatus { get; set; }
+        public PaymentMethod PaymentMethod { get; set; }
+        public int AddressId { get; set; }
+        public Address Address { get; set; } = null!;
+    }
+
+    public enum PaymentMethod
+    {
+        DirectBankTransfer,
+        CashOnDelivery
+    }
+    public enum OrderStatus
+    {
+        InProgress,
+        OnHold,
+        Cancelled,
+        Completed
     }
 
     public class OrderDetail : Entity
@@ -143,8 +160,10 @@ namespace ECommerceProject.DA.DataContext.Entities
         public string Adress { get; set; } = null!;
         public string Phone { get; set; } = null!;
         public string PostalCode { get; set; } = null!;
+        public bool IsDefault { get; set; }
         public string? AppUserId { get; set; }
         public AppUser? AppUser { get; set; }
+        public List<Order> Orders { get; set; } = [];
     }
 
     public class DiscountCode : TimeStample

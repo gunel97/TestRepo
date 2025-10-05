@@ -1806,6 +1806,7 @@ wwwroot\images\video\cosmetic2.mp4
 wwwroot\images\video\cosmetic3.mp4
 wwwroot\images\video\cosmetic4.mp4
 wwwroot\images\video\electric-bike.mp4
+wwwroot\js\address.js
 wwwroot\js\basket.js
 wwwroot\js\bootstrap.min.js
 wwwroot\js\bootstrap-select.min.js

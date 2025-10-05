@@ -8,7 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace ECommerceProject.BL.Services
 {
-    public class AddressManager :CrudManager<Address, AddressViewModel, AddressCreateViewModel, AddressUpdateViewModel>,
+    public class AddressManager : CrudManager<Address, AddressViewModel, AddressCreateViewModel, AddressUpdateViewModel>,
         IAddressService
     {
         public AddressManager(IRepository<Address> repository, IMapper mapper) : base(repository, mapper)

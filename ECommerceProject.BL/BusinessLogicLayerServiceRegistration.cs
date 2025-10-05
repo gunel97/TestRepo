@@ -26,8 +26,9 @@ namespace ECommerceProject.BL
             services.AddScoped<ILanguageService, LanguageManager>();
             services.AddScoped<ICurrencyService, CurrencyManager>();
             services.AddScoped<IAddressService, AddressManager>();
-            //services.AddScoped<IAccountService, AccountManager>();
             services.AddScoped<IWishlistItemService, WishlistItemManager>();
+            services.AddScoped<IOrderService, OrderManager>();
+            services.AddScoped<IOrderDetailService, OrderDetailManager>();
             
             services.AddScoped<IHomeService, HomeManager>();
             services.AddScoped<IShopService, ShopManager>();

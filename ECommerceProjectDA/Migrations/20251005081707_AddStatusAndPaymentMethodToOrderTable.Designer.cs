@@ -4,6 +4,7 @@ using ECommerceProject.DA.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECommerceProject.DA.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251005081707_AddStatusAndPaymentMethodToOrderTable")]
+    partial class AddStatusAndPaymentMethodToOrderTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -362,9 +365,6 @@ namespace ECommerceProject.DA.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AddressId")
-                        .HasColumnType("int");
-
                     b.Property<string>("AppUserId")
                         .HasColumnType("nvarchar(450)");
 
@@ -398,8 +398,6 @@ namespace ECommerceProject.DA.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AddressId");
 
                     b.HasIndex("AppUserId");
 
@@ -755,12 +753,6 @@ namespace ECommerceProject.DA.Migrations
 
             modelBuilder.Entity("ECommerceProject.DA.DataContext.Entities.Order", b =>
                 {
-                    b.HasOne("ECommerceProject.DA.DataContext.Entities.Address", "Address")
-                        .WithMany("Orders")
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ECommerceProject.DA.DataContext.Entities.AppUser", "AppUser")
                         .WithMany("Orders")
                         .HasForeignKey("AppUserId");
@@ -770,8 +762,6 @@ namespace ECommerceProject.DA.Migrations
                         .HasForeignKey("DiscountCodeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Address");
 
                     b.Navigation("AppUser");
 
@@ -904,11 +894,6 @@ namespace ECommerceProject.DA.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("ECommerceProject.DA.DataContext.Entities.Address", b =>
-                {
-                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("ECommerceProject.DA.DataContext.Entities.AppUser", b =>
