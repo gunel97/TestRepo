@@ -65,12 +65,6 @@ namespace ECommerceProject.MVC.Controllers
             });
         }
 
-        public async Task<IActionResult> Checkout()
-        {
-            var model = await _basketManager.GetBasketAsync();
-            return View(model);
-        }
-
         public async Task<IActionResult> Index()
         {
             var model = await _basketManager.GetBasketAsync();

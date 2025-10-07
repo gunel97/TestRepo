@@ -1,5 +1,11 @@
-﻿@model BasketViewModel   
-     
+﻿@* @{
+    OrderCreateViewModel model = Model;
+    var address = model.AddressCreateViewModel;
+    var orderDetails = model.OrderDetails;
+} *@
+
+@model OrderCreateViewModel
+
 <!-- page-title -->
 <div class="tf-page-title">
     <div class="container-full">
@@ -10,21 +16,24 @@
 <!-- page-cart -->
 <section class="flat-spacing-11">
     <div class="container">
+        <form method="post" class="form-checkout">
         <div class="tf-page-cart-wrap layout-2">
             <div class="tf-page-cart-item">
                 <h5 class="fw-5 mb_20">Billing details</h5>
-                <form class="form-checkout">
+                
                     <div class="box grid-2">
                         <fieldset class="fieldset">
-                            <label for="first-name">First Name</label>
-                            <input type="text" id="first-name" placeholder="Themesflat">
+                            <label  for="first-name">First Name</label>
+                            <input asp-for="AddressCreateViewModel.FirstName" @* asp-for="@address!.FirstName" *@ id="first-name" placeholder="Themesflat">
+                            <span asp-validation-for="AddressCreateViewModel.FirstName"></span>
                         </fieldset>
                         <fieldset class="fieldset">
                             <label for="last-name">Last Name</label>
-                            <input type="text" id="last-name">
+                            <input asp-for="AddressCreateViewModel.LastName" id="last-name">
+                            <span asp-validation-for="AddressCreateViewModel.LastName"></span>
                         </fieldset>
                     </div>
-                    <fieldset class="box fieldset">
+                   @*  <fieldset class="box fieldset">
                         <label for="country">Country/Region</label>
                         <div class="select-custom">
                             <select class="tf-select w-100" id="country" name="address[country]"
@@ -103,70 +112,93 @@
                                 <option value="Vietnam" data-provinces="[]">Vietnam</option>
                             </select>
                         </div>
+                    </fieldset> *@
+                    <fieldset class="box fieldset">
+                        <label for="country">Country</label>
+                        <input asp-for="AddressCreateViewModel.Country" id="country">
+                        <span asp-validation-for="AddressCreateViewModel.Country"></span>
                     </fieldset>
                     <fieldset class="box fieldset">
                         <label for="city">Town/City</label>
-                        <input type="text" id="city">
+                        <input asp-for="AddressCreateViewModel.City" id="city">
+                        <span asp-validation-for="AddressCreateViewModel.City"></span>
+                    </fieldset>
+                    <fieldset class="box fieldset">
+                        <label for="company">Company</label>
+                        <input asp-for="AddressCreateViewModel.Company" id="company">
+                        <span asp-validation-for="AddressCreateViewModel.Company"></span>
+                    </fieldset>
+                    <fieldset class="box fieldset">
+                        <label for="city">Postal/ZIP code</label>
+                        <input asp-for="AddressCreateViewModel.PostalCode" id="city">
+                        <span asp-validation-for="AddressCreateViewModel.PostalCode"></span>
                     </fieldset>
                     <fieldset class="box fieldset">
                         <label for="address">Address</label>
-                        <input type="text" id="address">
+                        <input asp-for="AddressCreateViewModel.Adress" id="address">
+                        <span asp-validation-for="AddressCreateViewModel.Adress"></span>
                     </fieldset>
                     <fieldset class="box fieldset">
                         <label for="phone">Phone Number</label>
-                        <input type="number" id="phone">
+                        <input asp-for="AddressCreateViewModel.Phone" id="phone">
+                        <span asp-validation-for="AddressCreateViewModel.Phone"></span>
                     </fieldset>
                     <fieldset class="box fieldset">
                         <label for="email">Email</label>
-                        <input type="email" id="email">
+                        <input asp-for="Email" id="email">
+                        <span asp-validation-for="Email"></span>
                     </fieldset>
                     <fieldset class="box fieldset">
                         <label for="note">Order notes (optional)</label>
-                        <textarea name="note" id="note"></textarea>
+                        <textarea asp-for="Note" id="note"></textarea>
+                        <span asp-validation-for="Note"></span>
                     </fieldset>
-                </form>
+              @*   </form> *@
             </div>
             <div class="tf-page-cart-footer">
                 <div class="tf-cart-footer-inner">
                     <h5 class="fw-5 mb_20">Your order</h5>
-                    <form class="tf-page-cart-checkout widget-wrap-checkout">
+                     <div class="tf-page-cart-checkout widget-wrap-checkout"> 
                         <ul class="wrap-checkout-product">
-                            @foreach (var item in Model.Items)
+                            @foreach(var item in Model.OrderDetails)
                             {
+                                <input asp-for="OrderDetails" type="hidden" />
                                 <li class="checkout-product-item">
                                     <figure class="img-product">
-                                        <img src="~/images/products/@item.ImageName" alt="product">
+                                        <img src="~/images/products/@item.ProductVariantImageName" alt="product">
                                         <span class="quantity">@item.Quantity</span>
                                     </figure>
                                     <div class="content">
                                         <div class="info">
                                             <p class="name">@item.ProductName</p>
-                                            <span class="variant">@item.ColorName / M</span>
+                                            <span class="variant">@item.ProductVariantColorName</span>
                                         </div>
-                                        <span class="price">$@item.Price</span>
+                                        <span class="price">$@item.TotalPrice</span>
                                     </div>
                                 </li>
                             }
                         </ul>
                         <div class="coupon-box">
-                            <input type="text" placeholder="Discount code">
+                            <input asp-for="Discount" type="text" placeholder="Discount code">
                             <a href="#"
                                class="tf-btn btn-sm radius-3 btn-fill btn-icon animate-hover-btn">Apply</a>
                         </div>
                         <div class="d-flex justify-content-between line pb_20">
                             <h6 class="fw-5">Total</h6>
-                            <h6 class="total fw-5">$@Model.TotalPrice</h6>
+                            <input type="hidden" asp-for="TotalPrice" />
+                            <h6 class="total fw-5">@Model.TotalPrice</h6>
                         </div>
-                        <div class="wd-check-payment">
+                         <div class="wd-check-payment">
                             <div class="fieldset-radio mb_20">
-                                <input type="radio" name="payment" id="bank" class="tf-check" checked>
+                                    <input asp-for="PaymentMethod" value="DirectBankTransfer" type="radio" id="bank" class="tf-check" checked>
                                 <label for="bank">Direct bank transfer</label>
 
                             </div>
                             <div class="fieldset-radio mb_20">
-                                <input type="radio" name="payment" id="delivery" class="tf-check">
+                                    <input asp-for="PaymentMethod" value="CashOnDelivery" type="radio" id="delivery" class="tf-check">
                                 <label for="delivery">Cash on delivery</label>
                             </div>
+                                <span asp-validation-for="PaymentMethod"></span>
                             <p class="text_black-2 mb_20">
                                 Your personal data will be used to process your order,
                                 support your experience throughout this website, and for other purposes
@@ -174,22 +206,25 @@
                                                     class="text-decoration-underline">privacy policy</a>.
                             </p>
                             <div class="box-checkbox fieldset-radio mb_20">
-                                <input type="checkbox" id="check-agree" class="tf-check">
+                                <input asp-for="AcceptTermsConditions" type="checkbox" id="check-agree" class="tf-check">
                                 <label for="check-agree" class="text_black-2">
                                     I have read and agree to the
                                     website <a href="terms-conditions.html"
                                                class="text-decoration-underline">terms and conditions</a>.
                                 </label>
+                                    <span asp-validation-for="AcceptTermsConditions"></span>
                             </div>
-                        </div>
-                        <button class="tf-btn radius-3 btn-fill btn-icon animate-hover-btn justify-content-center">
+                        </div> 
+                        <div asp-validation-summary="ModelOnly"></div>
+                        <button type="submit" class="tf-btn radius-3 btn-fill btn-icon animate-hover-btn justify-content-center">
                             Place
                             order
                         </button>
-                    </form>
+                   </div>
                 </div>
             </div>
         </div>
+        </form>
     </div>
 </section>
 <!-- page-cart -->

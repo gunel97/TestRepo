@@ -33,7 +33,9 @@ namespace ECommerceProject.MVC.Controllers
             if (User.Identity!.IsAuthenticated)
             {
                 var user = await _userManager.FindByNameAsync(User.Identity!.Name!);
-                model.AppUserId = user!.Id;
+                if (user == null)
+                    return RedirectToAction("Account", "Login");
+                model.AppUserId = user.Id;
             }
 
             await _addressService.CreateAsync(model);
@@ -88,15 +90,6 @@ namespace ECommerceProject.MVC.Controllers
             var existedAddress = await _addressService.GetByIdAsync(id);
             if (existedAddress == null)
                 return BadRequest();
-
-            existedAddress.FirstName = model.FirstName;
-            existedAddress.LastName = model.LastName;
-            existedAddress.Company = model.Company;
-            existedAddress.City = model.City;
-            existedAddress.Phone = model.Phone;
-            existedAddress.PostalCode = model.PostalCode;
-            existedAddress.Country = model.Country;
-            existedAddress.Adress = model.Adress;
 
             var updated = await _addressService.UpdateAsync(id, model);
 

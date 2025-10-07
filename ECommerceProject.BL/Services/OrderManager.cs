@@ -3,12 +3,61 @@ using ECommerceProject.BL.Services.Contracts;
 using ECommerceProject.BL.ViewModels;
 using ECommerceProject.DA.DataContext.Entities;
 using ECommerceProject.DA.DataContext.Repositories.Contracts;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace ECommerceProject.BL.Services
 {
     public class OrderManager:CrudManager<Order, OrderViewModel, OrderCreateViewModel, OrderUpdateViewModel>,
         IOrderService
     {
-        public OrderManager(IRepository<Order> repository, IMapper mapper):base(repository, mapper) { }
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly IAddressService _addressService;
+
+        public OrderManager(IRepository<Order> repository, IMapper mapper, IHttpContextAccessor httpContextAccessor, UserManager<AppUser> userManager, IAddressService addressService) : base(repository, mapper)
+        {
+            _httpContextAccessor = httpContextAccessor;
+            _userManager = userManager;
+            _addressService = addressService;
+        }
+
+        public async Task<OrderCreateViewModel> GetUserAndAddressViewModel(OrderCreateViewModel model)
+        {
+            var currentUser = _httpContextAccessor.HttpContext?.User;
+
+            if (currentUser != null && currentUser.Identity!.IsAuthenticated)
+            {
+                var user = await _userManager.FindByNameAsync(currentUser.Identity.Name!);
+
+                if (user != null)
+                {
+                    model.AppUserId = user.Id;
+                    model.Email = user.Email!;
+
+                    var addressViewModel = await _addressService.GetAsync(predicate:
+                         x => x.AppUserId == user.Id && x.IsDefault && !x.IsDeleted);
+
+                    if (addressViewModel != null)
+                    {
+                        model.AddressCreateViewModel = new AddressCreateViewModel()
+                        {
+                            Adress = addressViewModel.Adress!,
+                            FirstName = addressViewModel.FirstName!,
+                            LastName = addressViewModel.LastName!,
+                            Country = addressViewModel.Country,
+                            Company = addressViewModel.Company,
+                            City = addressViewModel.City!,
+                            Phone = addressViewModel.Phone!,
+                            PostalCode = addressViewModel.PostalCode!
+                        };
+                    }
+                }
+            }
+
+            return model;
+        }
+
     }
 }

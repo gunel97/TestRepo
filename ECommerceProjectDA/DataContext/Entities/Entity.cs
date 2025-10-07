@@ -76,11 +76,14 @@ namespace ECommerceProject.DA.DataContext.Entities
         public List<ProductVariant> ProductVariants { get; set; } = [];
         public List<WishlistItem> WishlistItems { get; set; } = [];
     }
+
     public class Color:TimeStample
     {
         public string Name { get; set; } = null!;
-        public string IconName { get; set; } = null!;
+        public string? IconName { get; set; }
+        public List<ProductVariant> ProductVariants = [];
     }
+
     public class ProductVariant : TimeStample
     {
         public int ProductId {  get; set; }
@@ -114,7 +117,7 @@ namespace ECommerceProject.DA.DataContext.Entities
 
     public class Order : TimeStample
     {
-        public int DiscountCodeId { get; set; }
+        public int? DiscountCodeId { get; set; }
         public DiscountCode? DiscountCode { get; set; }
         public string? AppUserId { get; set; }
         public AppUser? AppUser { get; set; }
@@ -126,6 +129,7 @@ namespace ECommerceProject.DA.DataContext.Entities
         public PaymentMethod PaymentMethod { get; set; }
         public int AddressId { get; set; }
         public Address Address { get; set; } = null!;
+        public decimal TotalPrice { get; set; }
     }
 
     public enum PaymentMethod
@@ -133,6 +137,7 @@ namespace ECommerceProject.DA.DataContext.Entities
         DirectBankTransfer,
         CashOnDelivery
     }
+
     public enum OrderStatus
     {
         InProgress,
@@ -169,8 +174,9 @@ namespace ECommerceProject.DA.DataContext.Entities
     public class DiscountCode : TimeStample
     {
         public string Code { get; set; } = null!;
-        public List<Order> Orders { get; set; } = null!;
+        public List<Order> Orders { get; set; } = [];
         public bool IsActive { get; set; }
+        public int SalePercentage { get; set; }
     }
 
 }

@@ -26,17 +26,33 @@ namespace ECommerceProject.BL.Services
             _userManager = userManager;
         }
 
-        public async Task<WishlistItemViewModel> CheckProduct(string userId, int id)
+        public async Task<WishlistItemsViewModel> GetWishlist()
         {
-            var item = await Repository.GetAsync(predicate: x=>x.AppUserId == userId && x.ProductId==id);
+            var currentUser = _httpContextAccessor.HttpContext?.User;
+            var itemsT = new WishlistItemsViewModel();
 
-            if (item == null)
-                return null!;
+            if (currentUser != null && currentUser.Identity!.IsAuthenticated)
+            {
+                string userName = currentUser.Identity.Name!;
 
-            var itemViewModel = Mapper.Map<WishlistItemViewModel>(item);
+                var items = await base.GetAllAsync(predicate: x => x.AppUser.UserName == userName && !x.IsDeleted,
+                  include: x => x
+                  .Include(p => p.Product).ThenInclude(pv => pv.ProductVariants).ThenInclude(c => c.Color!)
+                  .Include(p => p.Product).ThenInclude(pv => pv.ProductVariants).ThenInclude(i => i.ProductImages));
 
-            return itemViewModel; 
+                foreach (var item in items)
+                {
+                    item.Product!.IsInWishlist = true;
+                }
+
+                itemsT.Items = items.ToList();
+                itemsT.Count = items.ToList().Count;
+            }
+
+            return itemsT;
         }
+        
+
 
     }
 }

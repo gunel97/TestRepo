@@ -20,10 +20,11 @@ namespace ECommerceProject.MVC.Controllers
             _productService = productService;
             _userManager = userManager;
         }
+
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            var items = await GetWishlist();
+            var items = await _wishlistItemService.GetWishlist();
 
             return View(items);
         }
@@ -31,7 +32,7 @@ namespace ECommerceProject.MVC.Controllers
         [Authorize]
         public async Task<IActionResult> WishlistHeader()
         {
-            var items = await GetWishlist();
+            var items = await _wishlistItemService.GetWishlist();
 
             return View(items);
         }
@@ -51,7 +52,7 @@ namespace ECommerceProject.MVC.Controllers
             if (user == null)
                 return BadRequest();
 
-            var wishlistItems = await GetWishlist();
+            var wishlistItems = await _wishlistItemService.GetWishlist();
 
             var currentItem = wishlistItems.Items.FirstOrDefault(predicate: x=> x.ProductId==id);
 
@@ -74,7 +75,7 @@ namespace ECommerceProject.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Remove(int id)
         {
-            var items = await GetWishlist();
+            var items = await _wishlistItemService.GetWishlist();
             var product = await _productService.GetByIdAsync(id);
             var currentItem = items.Items.FirstOrDefault(x => x.ProductId == id);
             if (currentItem == null)
@@ -94,36 +95,10 @@ namespace ECommerceProject.MVC.Controllers
 
         public async Task<IActionResult> GetWishlistJ()
         {
-            var model = await GetWishlist();
+            var model = await _wishlistItemService.GetWishlist();
 
             return Json(model);
         }
 
-        [Authorize]
-        private async Task<WishlistItemsViewModel> GetWishlist()
-        {
-            var username = User.Identity!.Name ?? "";
-
-            var user = await _userManager.FindByNameAsync(username);
-
-            if (user == null)
-                return null!;
-
-            var items = await _wishlistItemService.GetAllAsync(predicate: x => x.AppUserId == user.Id && !x.IsDeleted,
-                include: x => x
-                .Include(p => p.Product).ThenInclude(pv => pv.ProductVariants).ThenInclude(c => c.Color!)
-                .Include(p => p.Product).ThenInclude(pv => pv.ProductVariants).ThenInclude(i => i.ProductImages));
-
-            foreach(var item in items)
-            {
-                item.Product!.IsInWishlist = true;
-            }
-
-            var itemsT = new WishlistItemsViewModel();
-            itemsT.Items = items.ToList();
-            itemsT.Count=items.ToList().Count;
-
-            return itemsT ;
-        }
     }
 }

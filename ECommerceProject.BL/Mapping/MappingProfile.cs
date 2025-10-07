@@ -4,6 +4,7 @@ using ECommerceProject.BL.ViewModels;
 using ECommerceProject.DA.DataContext.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,6 +34,16 @@ namespace ECommerceProject.BL.Mapping
             CreateMap<ProductVariant, ProductVariantCreateViewModel>().ReverseMap();
             CreateMap<ProductVariant, ProductVariantUpdateViewModel>().ReverseMap();
 
+            CreateMap<Order, OrderViewModel>()
+                .ForMember(x => x.Discount, opt=>opt.MapFrom(src=>src.DiscountCode == null ? "" : src.DiscountCode.Code))
+                .ReverseMap();
+            CreateMap<Order, OrderCreateViewModel>().ReverseMap();
+            CreateMap<Order, OrderUpdateViewModel>().ReverseMap();
+
+            CreateMap<DiscountCode, DiscountCodeViewModel>().ReverseMap();
+            CreateMap<DiscountCode, DiscountCodeCreateViewModel>().ReverseMap();
+            CreateMap<DiscountCode, DiscountCodeUpdateViewModel>().ReverseMap();
+
             CreateMap<Bio, BioViewModel>().ReverseMap();
             CreateMap<Bio, BioCreateViewModel>().ReverseMap();
             CreateMap<Bio, BioUpdateViewModel>().ReverseMap();
@@ -57,13 +68,13 @@ namespace ECommerceProject.BL.Mapping
             CreateMap<WishlistItem, WishlistItemCreateViewModel>().ReverseMap();
             CreateMap<WishlistItem, WishlistItemUpdateViewModel>().ReverseMap();
 
-            CreateMap<Order, OrderViewModel>().ReverseMap();
-            CreateMap<Order, OrderCreateViewModel>().ReverseMap();
-            CreateMap<Order, OrderUpdateViewModel>().ReverseMap();
+            
 
             CreateMap<OrderDetail, OrderDetailViewModel>().ReverseMap();
             CreateMap<OrderDetail, OrderDetailCreateViewModel>().ReverseMap();
             CreateMap<OrderDetail, OrderDetailUpdateViewModel>().ReverseMap();
+
+            
         }
     }
 }

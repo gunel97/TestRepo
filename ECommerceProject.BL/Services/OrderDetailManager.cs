@@ -9,9 +9,31 @@ namespace ECommerceProject.BL.Services
     public class OrderDetailManager : CrudManager<OrderDetail, OrderDetailViewModel, OrderDetailCreateViewModel, OrderDetailUpdateViewModel>,
         IOrderDetailService
     {
-        public OrderDetailManager(IRepository<OrderDetail> repository, IMapper mapper) : base(repository, mapper)
+        private readonly BasketManager _basketManager;
+        public OrderDetailManager(IRepository<OrderDetail> repository, IMapper mapper, BasketManager basketManager) : base(repository, mapper)
         {
+            _basketManager = basketManager;
+        }
 
+        public async Task<List<OrderDetailCreateViewModel>> GetOrderDetailCreateViewModels()
+        {
+            var basketViewModel = await _basketManager.GetBasketAsync();
+            var orderDetailCreateViewModels = new List<OrderDetailCreateViewModel>();
+
+            foreach (var item in basketViewModel.Items)
+            {
+                orderDetailCreateViewModels.Add(new OrderDetailCreateViewModel()
+                {
+                    Quantity = item.Quantity,
+                    ProductVariantId = item.ProductVariantId,
+                    ProductVariantColorName = item.ColorName,
+                    ProductVariantImageName = item.ImageName,
+                    ProductName = item.ProductName,
+                    TotalPrice = item.TotalPrice,
+                });
+            }
+
+            return orderDetailCreateViewModels;
         }
     }
 }

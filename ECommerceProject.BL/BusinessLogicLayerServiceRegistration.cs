@@ -29,6 +29,7 @@ namespace ECommerceProject.BL
             services.AddScoped<IWishlistItemService, WishlistItemManager>();
             services.AddScoped<IOrderService, OrderManager>();
             services.AddScoped<IOrderDetailService, OrderDetailManager>();
+            services.AddScoped<IDiscountCodeService, DiscountCodeManager>();
             
             services.AddScoped<IHomeService, HomeManager>();
             services.AddScoped<IShopService, ShopManager>();
