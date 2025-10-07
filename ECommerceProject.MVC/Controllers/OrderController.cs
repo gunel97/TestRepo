@@ -34,7 +34,7 @@ namespace ECommerceProject.MVC.Controllers
             var model = new OrderCreateViewModel();
             model.OrderDetails = await _orderDetailService.GetOrderDetailCreateViewModels();
             model = await _orderService.GetUserAndAddressViewModel(model);
-            model.TotalPrice = model.OrderDetails.Sum(x => x.TotalPrice);
+        //  model.TotalPrice = model.OrderDetails.Sum(x => x.TotalPrice);
 
             return View(model);
         }
@@ -59,17 +59,11 @@ namespace ECommerceProject.MVC.Controllers
                 if (discountCode == null)
                     ModelState.AddModelError("Aktiv bele kod movcud deyil", nameof(model.Discount));
                 else
-                    model.TotalPrice = (model.TotalPrice * discountCode.SalePercentage) / 100;
+                    model.TotalPrice -= (model.TotalPrice * discountCode.SalePercentage) / 100;
             }
 
-            var address = model.AddressCreateViewModel;
-            await _addressService.CreateAsync(address);
-
-            
-            model.OrderStatus = OrderStatus.OnHold;
-
             await _orderService.CreateAsync(model);
-            return RedirectToAction("Home", "Index");
+            return RedirectToAction("Index", "Home");
         }
 
     }

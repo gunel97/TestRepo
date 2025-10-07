@@ -26,10 +26,10 @@ namespace ECommerceProject.BL.Services
                 {
                     Quantity = item.Quantity,
                     ProductVariantId = item.ProductVariantId,
-                    ProductVariantColorName = item.ColorName,
-                    ProductVariantImageName = item.ImageName,
-                    ProductName = item.ProductName,
-                    TotalPrice = item.TotalPrice,
+                    //ProductVariantColorName = item.ColorName,
+                    //ProductVariantImageName = item.ImageName,
+                    //ProductName = item.ProductName,
+                    //TotalPrice = item.TotalPrice,
                 });
             }
 

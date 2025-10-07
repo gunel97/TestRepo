@@ -44,10 +44,11 @@ namespace ECommerceProject.BL.ViewModels
         public int Quantity { get; set; }
         public int OrderId { get; set; }
         public int ProductVariantId { get; set; }
-        public string ProductName { get; set; } = null!;
-        public string ProductVariantColorName { get; set; } = null!;
-        public string ProductVariantImageName { get; set; } = null!;
-        public decimal TotalPrice { get; set; }
+        public ProductVariantViewModel ProductVariantViewModel { get; set; } = null!;
+        //public string ProductName { get; set; } = null!;
+        //public string ProductVariantColorName { get; set; } = null!;
+        //public string ProductVariantImageName { get; set; } = null!;
+        //public decimal TotalPrice { get; set; }
     }
     public class OrderCreateViewModel
     {

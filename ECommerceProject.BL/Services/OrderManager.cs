@@ -15,12 +15,14 @@ namespace ECommerceProject.BL.Services
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly UserManager<AppUser> _userManager;
         private readonly IAddressService _addressService;
+        private readonly IOrderDetailService _orderDetailService;
 
-        public OrderManager(IRepository<Order> repository, IMapper mapper, IHttpContextAccessor httpContextAccessor, UserManager<AppUser> userManager, IAddressService addressService) : base(repository, mapper)
+        public OrderManager(IRepository<Order> repository, IMapper mapper, IHttpContextAccessor httpContextAccessor, UserManager<AppUser> userManager, IAddressService addressService, IOrderDetailService orderDetailService) : base(repository, mapper)
         {
             _httpContextAccessor = httpContextAccessor;
             _userManager = userManager;
             _addressService = addressService;
+            _orderDetailService = orderDetailService;
         }
 
         public async Task<OrderCreateViewModel> GetUserAndAddressViewModel(OrderCreateViewModel model)
@@ -58,6 +60,32 @@ namespace ECommerceProject.BL.Services
 
             return model;
         }
+
+        public override async Task CreateAsync(OrderCreateViewModel model)
+        {
+            model.OrderDetails = await _orderDetailService.GetOrderDetailCreateViewModels();
+            model.OrderStatus = OrderStatus.OnHold;
+
+            var order = Mapper.Map<Order>(model);
+
+            if(model.AddressCreateViewModel != null)
+            {
+                var address = await _addressService.CreateAddressAsync( model.AddressCreateViewModel);
+                order.AddressId = address.Id;
+            }
+
+            await Repository.CreateAsync(order);
+        }
+
+        //public async Task<> CreateOrderWithoutUser()
+        //{
+
+        //}
+
+        //public async Task<> CreateOrderOfUser()
+        //{
+
+        //}
 
     }
 }

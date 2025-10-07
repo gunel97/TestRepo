@@ -163,19 +163,19 @@
                             @foreach(var item in Model.OrderDetails)
                             {
                                 <input asp-for="OrderDetails" type="hidden" />
-                                <li class="checkout-product-item">
+                                 <li class="checkout-product-item">
                                     <figure class="img-product">
-                                        <img src="~/images/products/@item.ProductVariantImageName" alt="product">
+                                        <img src="~/images/products/@item.ProductVariantViewModel.CoverImageName" alt="product">
                                         <span class="quantity">@item.Quantity</span>
                                     </figure>
-                                    <div class="content">
+          @*                           <div class="content">
                                         <div class="info">
                                             <p class="name">@item.ProductName</p>
                                             <span class="variant">@item.ProductVariantColorName</span>
                                         </div>
                                         <span class="price">$@item.TotalPrice</span>
-                                    </div>
-                                </li>
+                                    </div> *@
+                                </li> 
                             }
                         </ul>
                         <div class="coupon-box">

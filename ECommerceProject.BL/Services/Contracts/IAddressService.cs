@@ -6,6 +6,6 @@ namespace ECommerceProject.BL.Services.Contracts
     public interface IAddressService 
         : ICrudService<Address, AddressViewModel, AddressCreateViewModel, AddressUpdateViewModel> 
     {
- 
+        Task<Address> CreateAddressAsync(AddressCreateViewModel createViewModel);
     }
 }
