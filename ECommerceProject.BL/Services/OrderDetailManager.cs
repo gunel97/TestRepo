@@ -18,6 +18,7 @@ namespace ECommerceProject.BL.Services
         public async Task<List<OrderDetailCreateViewModel>> GetOrderDetailCreateViewModels()
         {
             var basketViewModel = await _basketManager.GetBasketAsync();
+
             var orderDetailCreateViewModels = new List<OrderDetailCreateViewModel>();
 
             foreach (var item in basketViewModel.Items)
@@ -26,10 +27,6 @@ namespace ECommerceProject.BL.Services
                 {
                     Quantity = item.Quantity,
                     ProductVariantId = item.ProductVariantId,
-                    //ProductVariantColorName = item.ColorName,
-                    //ProductVariantImageName = item.ImageName,
-                    //ProductName = item.ProductName,
-                    //TotalPrice = item.TotalPrice,
                 });
             }
 

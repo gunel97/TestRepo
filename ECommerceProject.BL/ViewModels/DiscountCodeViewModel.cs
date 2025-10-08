@@ -8,6 +8,7 @@ namespace ECommerceProject.BL.ViewModels
 {
     public class DiscountCodeViewModel
     {
+        public int Id { get; set; }
         public string? Code { get; set; }
         public int SalePercentage { get; set; }
     }

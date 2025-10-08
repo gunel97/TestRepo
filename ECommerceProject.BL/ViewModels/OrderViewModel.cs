@@ -1,5 +1,6 @@
 ﻿using ECommerceProject.DA.DataContext.Entities;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace ECommerceProject.BL.ViewModels
 {
+    
     public class OrderViewModel
     {
         public int Id { get; set; }
@@ -52,7 +54,9 @@ namespace ECommerceProject.BL.ViewModels
     }
     public class OrderCreateViewModel
     {
+        public bool HasAppliedDiscount {  get; set; }
         public string? Discount { get; set; }
+        public int? DiscountCodeId { get; set; }
         public string? AppUserId { get; set; }
         public List<OrderDetailCreateViewModel> OrderDetails { get; set; } = [];
         public bool GiftWrap { get; set; }
@@ -64,6 +68,7 @@ namespace ECommerceProject.BL.ViewModels
         public AddressViewModel? AddressViewModel { get; set; } 
         public bool AcceptTermsConditions {  get; set; }
         public decimal TotalPrice { get; set; }
+        public BasketViewModel? BasketViewModel { get; set; }
     }
 
     public class OrderDetailUpdateViewModel

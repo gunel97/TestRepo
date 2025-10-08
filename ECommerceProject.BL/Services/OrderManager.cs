@@ -5,6 +5,7 @@ using ECommerceProject.DA.DataContext.Entities;
 using ECommerceProject.DA.DataContext.Repositories.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace ECommerceProject.BL.Services
@@ -16,13 +17,18 @@ namespace ECommerceProject.BL.Services
         private readonly UserManager<AppUser> _userManager;
         private readonly IAddressService _addressService;
         private readonly IOrderDetailService _orderDetailService;
+        private readonly BasketManager _basketManager;
+        private readonly IDiscountCodeService _discountCodeService;
 
-        public OrderManager(IRepository<Order> repository, IMapper mapper, IHttpContextAccessor httpContextAccessor, UserManager<AppUser> userManager, IAddressService addressService, IOrderDetailService orderDetailService) : base(repository, mapper)
+
+        public OrderManager(IRepository<Order> repository, IMapper mapper, IHttpContextAccessor httpContextAccessor, UserManager<AppUser> userManager, IAddressService addressService, IOrderDetailService orderDetailService, BasketManager basketManager, IDiscountCodeService discountCodeService) : base(repository, mapper)
         {
             _httpContextAccessor = httpContextAccessor;
             _userManager = userManager;
             _addressService = addressService;
             _orderDetailService = orderDetailService;
+            _basketManager = basketManager;
+            _discountCodeService = discountCodeService;
         }
 
         public async Task<OrderCreateViewModel> GetUserAndAddressViewModel(OrderCreateViewModel model)
@@ -43,12 +49,13 @@ namespace ECommerceProject.BL.Services
 
                     if (addressViewModel != null)
                     {
+                        //model.AddressViewModel= addressViewModel;
                         model.AddressCreateViewModel = new AddressCreateViewModel()
                         {
                             Adress = addressViewModel.Adress!,
                             FirstName = addressViewModel.FirstName!,
                             LastName = addressViewModel.LastName!,
-                            Country = addressViewModel.Country,
+                            Country = addressViewModel.Country!,
                             Company = addressViewModel.Company,
                             City = addressViewModel.City!,
                             Phone = addressViewModel.Phone!,
@@ -68,24 +75,47 @@ namespace ECommerceProject.BL.Services
 
             var order = Mapper.Map<Order>(model);
 
-            if(model.AddressCreateViewModel != null)
+            var currentUser = _httpContextAccessor.HttpContext?.User;
+
+            order.DiscountCodeId = model.DiscountCodeId;
+
+            if (currentUser != null && currentUser.Identity!.IsAuthenticated)
             {
-                var address = await _addressService.CreateAddressAsync( model.AddressCreateViewModel);
-                order.AddressId = address.Id;
+                var user = await _userManager.FindByNameAsync(currentUser.Identity.Name!);
+
+                if (user != null)
+                {
+                    order.AppUserId = user.Id;
+                    order.Email = user.Email!;
+
+                    var addressViewModel = await _addressService.GetAsync(predicate:
+                         x => x.AppUserId == user.Id && x.IsDefault && !x.IsDeleted);
+
+                    if (addressViewModel != null)
+                        order.AddressId = addressViewModel.Id;
+
+                }
+            }
+            else
+            {
+                if (model.AddressCreateViewModel != null)
+                {
+                    var address = await _addressService.CreateAddressAsync(model.AddressCreateViewModel);
+                    order.AddressId = address.Id;
+                }
             }
 
             await Repository.CreateAsync(order);
         }
 
-        //public async Task<> CreateOrderWithoutUser()
-        //{
+        public async Task<DiscountCodeViewModel> GetDiscount(string discountCode)
+        {
+            var basket = await _basketManager.GetBasketAsync();
 
-        //}
+            var discount = await _discountCodeService.GetAsync(predicate:
+                    x => x.Code == discountCode && x.IsActive && !x.IsDeleted);
 
-        //public async Task<> CreateOrderOfUser()
-        //{
-
-        //}
-
+            return discount!;
+        }
     }
 }

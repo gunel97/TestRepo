@@ -160,33 +160,34 @@
                     <h5 class="fw-5 mb_20">Your order</h5>
                      <div class="tf-page-cart-checkout widget-wrap-checkout"> 
                         <ul class="wrap-checkout-product">
-                            @foreach(var item in Model.OrderDetails)
+                            @foreach(var item in Model.BasketViewModel?.Items ??  [])
                             {
                                 <input asp-for="OrderDetails" type="hidden" />
                                  <li class="checkout-product-item">
                                     <figure class="img-product">
-                                        <img src="~/images/products/@item.ProductVariantViewModel.CoverImageName" alt="product">
+                                        <img src="~/images/products/@item.ImageName" alt="product">
                                         <span class="quantity">@item.Quantity</span>
                                     </figure>
-          @*                           <div class="content">
+                                     <div class="content">
                                         <div class="info">
                                             <p class="name">@item.ProductName</p>
-                                            <span class="variant">@item.ProductVariantColorName</span>
+                                            <span class="variant">@item.ColorName</span>
                                         </div>
                                         <span class="price">$@item.TotalPrice</span>
-                                    </div> *@
+                                    </div> 
                                 </li> 
                             }
                         </ul>
                         <div class="coupon-box">
-                            <input asp-for="Discount" type="text" placeholder="Discount code">
-                            <a href="#"
+                            <input id="discountCode" asp-for="Discount"  type="text" placeholder="Discount code">
+                            <a onclick='applyDiscount()'
                                class="tf-btn btn-sm radius-3 btn-fill btn-icon animate-hover-btn">Apply</a>
+                                <input asp-for="HasAppliedDiscount" type="hidden" id="hasAppliedDiscount" value="false" />
                         </div>
                         <div class="d-flex justify-content-between line pb_20">
                             <h6 class="fw-5">Total</h6>
                             <input type="hidden" asp-for="TotalPrice" />
-                            <h6 class="total fw-5">@Model.TotalPrice</h6>
+                            <h6  id='totalPrice' class="total fw-5">@Model.TotalPrice</h6>
                         </div>
                          <div class="wd-check-payment">
                             <div class="fieldset-radio mb_20">

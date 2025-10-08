@@ -150,5 +150,14 @@ namespace ECommerceProject.BL.Services
 
             _httpContextAccessor.HttpContext?.Response.Cookies.Append(BasketCookieName, cookieValue, cookieOptions);
         }
+
+        public void CleanBasket()
+        {
+            var basket = GetBasketFromCookie();
+
+            basket.Clear();
+
+            SaveBasketToCookie(basket);
+        }
     }
 }

@@ -131,6 +131,23 @@ function removeFromBasket(productVariantId, element) {
         })
 }
 
+function cleanBasket() {
+    fetch('/basket/clean', { method: 'POST' })
+        .then(response => {
+            if (response.ok) {
+                loadBasket();
+            }
+            else {
+                alert('Failed to clean basket');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occured');
+        })
+}
+
+
 function changeQuantity(productVariantId, change) {
     const productVariantIdInput = document.getElementById(`productVariantId${productVariantId}`);
     const currentQuantity = parseInt(productVariantIdInput.value);
@@ -218,7 +235,6 @@ function setSelectedColor(variantId, productId, imageName , element) {
 
     if (element.value == false)
         return;
-        return;
     const hiddenInput = document.getElementById(`product${productId}`);
     hiddenInput.value = variantId;
 }
@@ -233,4 +249,28 @@ function setSelectedColorD(variantId, productId, element) {
     console.log(variantId)
 
     hiddenInput.value = variantId;
+}
+
+function applyDiscount() {
+    const discountCode = document.getElementById('discountCode').value;
+    const totalPrice = document.getElementById('totalPrice');
+    const totalPriceValue = parseInt(document.getElementById('totalPrice').innerText);
+    const hasAppliedDiscount = document.getElementById('hasAppliedDiscount');
+
+    fetch(`/order/applyDiscount?discountCode=${discountCode}`, {
+        method: 'POST'
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.result == 0) {
+                alert('Kod movcud deyil ve ya aktiv deyil');
+                return;
+            }
+            else {
+                totalPrice.innerText = totalPriceValue - (totalPriceValue * data.result / 100);
+                hasAppliedDiscount.value = true;
+                alert('Endirim tetbiq olundu');
+            }
+        })
+        .catch(error => console.error('Error:', error));
 }

@@ -123,7 +123,7 @@ namespace ECommerceProject.DA.DataContext.Entities
         public AppUser? AppUser { get; set; }
         public List<OrderDetail> OrderDetails { get; set; } = [];
         public bool GiftWrap { get; set; }
-        public string Note { get; set; } = null!;
+        public string? Note { get; set; }
         public string Email { get; set; } = null!;
         public OrderStatus OrderStatus { get; set; }
         public PaymentMethod PaymentMethod { get; set; }
