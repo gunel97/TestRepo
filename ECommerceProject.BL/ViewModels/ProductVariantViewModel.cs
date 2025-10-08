@@ -11,6 +11,8 @@ namespace ECommerceProject.BL.ViewModels
     public class ProductVariantViewModel
     {
         public int Id { get; set; }
+        public string ProductName { get; set; } = null!;
+        public decimal Priced { get; set; }
         public int ProductId { get; set; }
         public int Quantity { get; set; }
         public int ColorId { get; set; }

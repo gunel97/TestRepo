@@ -1,4 +1,6 @@
-﻿        <!-- page-title -->
+﻿@model OrderViewModel
+
+<!-- page-title -->
 <div class="tf-page-title">
     <div class="container-full">
         <div class="heading text-center">My Orders</div>
@@ -10,26 +12,24 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-3">
-                <div class="wrap-sidebar-account">
-                    <ul class="my-account-nav">
-                        <li><a href="my-account.html" class="my-account-nav-item ">Dashboard</a></li>
-                        <li><span class="my-account-nav-item active">Orders</span></li>
-                        <li><a href="my-account-address.html" class="my-account-nav-item">Address</a></li>
-                        <li><a href="my-account-edit.html" class="my-account-nav-item">Account Details</a></li>
-                        <li><a href="my-account-wishlist.html" class="my-account-nav-item">Wishlist</a></li>
-                        <li><a href="login.html" class="my-account-nav-item">Logout</a></li>
-                    </ul>
-                </div>
+                <partial name="_AccountMenuPartial" />
             </div>
             <div class="col-lg-9">
                 <div class="wd-form-order">
                     <div class="order-head">
+                        @foreach (var item in Model.OrderDetails ?? [])
+                            {
+                                <span>
                         <figure class="img-product">
-                            <img src="images/products/brown.jpg" alt="product">
+                            
+                               <img src="~/images/products/@item.ProductVariant?.CoverImageName" alt="product">
+                            
                         </figure>
+                        </span>
+                            }
                         <div class="content">
                             <div class="badge">In Progress</div>
-                            <h6 class="mt-8 fw-5">Order #17493</h6>
+                            <h6 class="mt-8 fw-5">Order #@Model.Id</h6>
                         </div>
                     </div>
                     <div class="tf-grid-layout md-col-2 gap-15">
@@ -43,11 +43,11 @@
                         </div>
                         <div class="item">
                             <div class="text-2 text_black-2">Start Time</div>
-                            <div class="text-2 mt_4 fw-6">04 September 2024, 13:30:23</div>
+                            <div class="text-2 mt_4 fw-6">@Model.CreatedAt</div>
                         </div>
                         <div class="item">
                             <div class="text-2 text_black-2">Address</div>
-                            <div class="text-2 mt_4 fw-6">1234 Fashion Street, Suite 567, New York</div>
+                            <div class="text-2 mt_4 fw-6">@Model.Address?.Adress</div>
                         </div>
                     </div>
                     <div class="widget-tabs style-has-border widget-order-tab">
@@ -114,21 +114,25 @@
                                     </ul>
                                 </div>
                             </div>
+
                             <div class="widget-content-inner">
+                                @foreach (var item in Model.OrderDetails ?? [])
+                                {
                                 <div class="order-head">
                                     <figure class="img-product">
-                                        <img src="images/products/brown.jpg" alt="product">
+                                        <img src="~/images/products/@item.ProductVariant?.CoverImageName" alt="product">
                                     </figure>
-                                    <div class="content">
-                                        <div class="text-2 fw-6">Ribbed modal T-shirt</div>
-                                        <div class="mt_4"><span class="fw-6">Price :</span> $28.95</div>
-                                        <div class="mt_4"><span class="fw-6">Size :</span> XL</div>
-                                    </div>
+                                        <div class="content">
+                                            <div class="text-2 fw-6">@item.ProductVariant?.ProductName</div>
+                                            <div class="mt_4"><span class="fw-6">Price :</span>$ @item.ProductVariant?.Priced</div>
+                                            <div class="mt_4"><span class="fw-6">Color :</span> @item.ProductVariant?.ColorName</div>
+                                        </div>                                 
                                 </div>
+                                }
                                 <ul>
                                     <li class="d-flex justify-content-between text-2">
                                         <span>Total Price</span>
-                                        <span class="fw-6">$28.95</span>
+                                        <span class="fw-6">$@Model.TotalPrice</span>
                                     </li>
                                     <li class="d-flex justify-content-between text-2 mt_4 pb_8 line">
                                         <span>Total Discounts</span>

@@ -10,6 +10,5 @@ namespace ECommerceProject.BL.ViewModels
     {
         public List<CategoryViewModel> Categories { get; set; } = [];
         public List<ProductViewModel> Products { get; set; } = [];
-      //  public List<ProductVariantViewModel> ProductVariants { get; set; } = [];
     }
 }

@@ -7,6 +7,9 @@ namespace ECommerceProject.BL.Services.Contracts
         : ICrudService<Order, OrderViewModel, OrderCreateViewModel, OrderUpdateViewModel>
     {
         Task<OrderCreateViewModel> GetUserAndAddressViewModel(OrderCreateViewModel model);
+        
         Task<DiscountCodeViewModel> GetDiscount(string discountCode);
+
+        Task<List<OrderViewModel>> GetOrderViewModelsAsync(string userId);
     }
 }

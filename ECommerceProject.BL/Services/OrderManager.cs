@@ -6,6 +6,8 @@ using ECommerceProject.DA.DataContext.Repositories.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using System.Security.Claims;
 
 namespace ECommerceProject.BL.Services
@@ -116,6 +118,15 @@ namespace ECommerceProject.BL.Services
                     x => x.Code == discountCode && x.IsActive && !x.IsDeleted);
 
             return discount!;
+        }
+
+        public async Task<List<OrderViewModel>> GetOrderViewModelsAsync(string userId)
+        {
+            var model = await GetAllAsync(predicate: x => x.AppUser!.Id == userId && !x.IsDeleted,
+                include: x => x.Include(od => od.OrderDetails).ThenInclude(pv => pv.ProductVariant).ThenInclude(c=>c.Color!)
+                .Include(p=>p.OrderDetails).ThenInclude(p=>p.ProductVariant).ThenInclude(p=>p.Product!));
+
+            return model.ToList();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model OrderViewModel
+﻿@model List<OrderViewModel>
 
         <!-- page-title -->
 <div class="tf-page-title">
@@ -28,67 +28,29 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="tf-order-item">
-                                    <td>
-                                        #123
-                                    </td>
-                                    <td>
-                                        August 1, 2024
-                                    </td>
-                                    <td>
-                                        On hold
-                                    </td>
-                                    <td>
-                                        $200.0 for 1 items
-                                    </td>
-                                    <td>
-                                        <a href="my-account-orders-details.html"
-                                           class="tf-btn btn-fill animate-hover-btn rounded-0 justify-content-center">
-                                            <span>View</span>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr class="tf-order-item">
-                                    <td>
-                                        #345
-                                    </td>
-                                    <td>
-                                        August 2, 2024
-                                    </td>
-                                    <td>
-                                        On hold
-                                    </td>
-                                    <td>
-                                        $300.0 for 1 items
-                                    </td>
-                                    <td>
-                                        <a href="my-account-orders-details.html"
-                                           class="tf-btn btn-fill animate-hover-btn rounded-0 justify-content-center">
-                                            <span>View</span>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr class="tf-order-item">
-                                    <td>
-                                        #567
-                                    </td>
-                                    <td>
-                                        August 3, 2024
-                                    </td>
-                                    <td>
-                                        On hold
-                                    </td>
-                                    <td>
-                                        $400.0 for 1 items
-                                    </td>
-                                    <td>
-                                        <a href="my-account-orders-details.html"
-                                           class="tf-btn btn-fill animate-hover-btn rounded-0 justify-content-center">
-                                            <span>View</span>
-                                        </a>
-                                    </td>
-                                </tr>
-
+                                @foreach (var orderViewModel in Model)
+                                {
+                                    <tr class="tf-order-item">
+                                        <td>
+                                            #@orderViewModel.Id
+                                        </td>
+                                        <td>
+                                            @orderViewModel.CreatedAt
+                                        </td>
+                                        <td>
+                                            @orderViewModel.OrderStatus.ToString();
+                                        </td>
+                                        <td>
+                                            $@orderViewModel.TotalPrice for @orderViewModel.TotalCount items
+                                        </td>
+                                        <td>
+                                            <a asp-controller="order" asp-action="details" asp-route-id="@orderViewModel.Id"
+                                            class="tf-btn btn-fill animate-hover-btn rounded-0 justify-content-center">
+                                                <span>View</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                     </div>

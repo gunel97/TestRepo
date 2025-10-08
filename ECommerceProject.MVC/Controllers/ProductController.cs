@@ -23,13 +23,14 @@ namespace ECommerceProject.MVC.Controllers
         {
             int productId = int.Parse(id.Split('-').Last());
 
-            var model = await _productService.GetAsync(predicate: x => x.Id == productId && !x.IsDeleted,
-                include: x => x
+            var model = await _productService.GetAsync(predicate: x => x.Id == productId && !x.IsDeleted
+            , include: x => x
                 .Include(c => c.Category)
                 .Include(pv => pv.ProductVariants)
                 .ThenInclude(i => i.ProductImages)
                 .Include(pv => pv.ProductVariants)
-                .ThenInclude(pc => pc.Color!));
+                .ThenInclude(pc => pc.Color!)
+                );
 
             return View(model);
         }

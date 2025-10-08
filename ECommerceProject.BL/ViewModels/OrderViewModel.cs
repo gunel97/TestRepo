@@ -19,12 +19,13 @@ namespace ECommerceProject.BL.ViewModels
         public bool GiftWrap { get; set; }
         public string? Note {  get; set; }
         public string Email { get; set; } = null!;
-        public decimal TotalPrice { get; set; }
+        public decimal TotalPrice { get; set; } 
+        public int TotalCount { get; set; }
         public OrderStatus OrderStatus { get; set; } 
         public PaymentMethod PaymentMethod { get; set; }
         public DateTime? CreatedAt { get; set; }
         public int AddressId { get; set; }
-        public AddressViewModel? AddressViewModel { get; set; }
+        public AddressViewModel? Address { get; set; }
 
     }
 
@@ -34,11 +35,8 @@ namespace ECommerceProject.BL.ViewModels
         public int Id { get; set; }
         public int Quantity { get; set; }
         public int ProductVariantId { get; set; }
-        public string ProductName { get; set; } = null!;
-        public string ProductVariantColorName { get; set; } = null!;
-        public string ProductVariantImageName { get; set; }=null!;
-        public decimal TotalPrice {  get; set; }
-
+        public ProductVariantViewModel? ProductVariant { get; set; }
+        public decimal TotalPrice { get; set; }
     }
 
     public class OrderDetailCreateViewModel
@@ -47,10 +45,6 @@ namespace ECommerceProject.BL.ViewModels
         public int OrderId { get; set; }
         public int ProductVariantId { get; set; }
         public ProductVariantViewModel ProductVariantViewModel { get; set; } = null!;
-        //public string ProductName { get; set; } = null!;
-        //public string ProductVariantColorName { get; set; } = null!;
-        //public string ProductVariantImageName { get; set; } = null!;
-        //public decimal TotalPrice { get; set; }
     }
     public class OrderCreateViewModel
     {
