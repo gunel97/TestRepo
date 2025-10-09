@@ -16,16 +16,14 @@ namespace ECommerceProject.MVC.Controllers
         private readonly IOrderService _orderService;
         private readonly IOrderDetailService _orderDetailService;
         private readonly BasketManager _basketManager;
-        private readonly IAddressService _addressService;
-        private readonly IDiscountCodeService _discountCodeService;
-        public OrderController(IOrderService orderService, UserManager<AppUser> userManager, IOrderDetailService orderDetailService, BasketManager basketManager, IAddressService addressService, IDiscountCodeService discountCodeService)
+
+
+        public OrderController(IOrderService orderService, UserManager<AppUser> userManager, IOrderDetailService orderDetailService, BasketManager basketManager)
         {
             _orderService = orderService;
             _userManager = userManager;
             _orderDetailService = orderDetailService;
             _basketManager = basketManager;
-            _addressService = addressService;
-            _discountCodeService = discountCodeService;
         }
 
         public async Task<IActionResult> Checkout()

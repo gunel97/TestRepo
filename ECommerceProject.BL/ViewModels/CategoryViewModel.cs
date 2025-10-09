@@ -14,6 +14,7 @@ namespace ECommerceProject.BL.ViewModels
         public string? Description { get; set; }
         public string? ImageName { get; set; }
         public bool IsDeleted { get; set; }
+        public List<ProductViewModel> Products { get; set; } = [];
 
     }
 
