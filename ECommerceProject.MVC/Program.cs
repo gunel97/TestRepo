@@ -30,6 +30,7 @@ namespace ECommerceProject.MVC
             }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
 
+
             FilePathConstants.ProductImagePath = Path.Combine(builder.Environment.WebRootPath, "images", "products");
             FilePathConstants.CategoryImagePath = Path.Combine(builder.Environment.WebRootPath, "images", "collections");
 
@@ -48,6 +49,34 @@ namespace ECommerceProject.MVC
             {
                 var dataInitializer = scope.ServiceProvider.GetRequiredService<DataInitializer>();
                 await dataInitializer.Initialize();
+            }
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
+
+                string adminRole = "Admin";
+                string adminEmail = "Admin@email.com";
+                string adminPassword = "admin123";
+
+                if (!await roleManager.RoleExistsAsync(adminRole))
+                    await roleManager.CreateAsync(new IdentityRole(adminRole));
+
+                var adminUser = await userManager.FindByEmailAsync(adminEmail);
+                if (adminUser == null)
+                {
+                    adminUser = new AppUser
+                    {
+                        UserName = adminEmail,
+                        Email = adminEmail,
+                        EmailConfirmed = true
+                    };
+                    await userManager.CreateAsync(adminUser, adminPassword);
+                }
+
+                if (!await userManager.IsInRoleAsync(adminUser, adminRole))
+                    await userManager.AddToRoleAsync(adminUser, adminRole);
             }
 
             app.UseHttpsRedirection();
