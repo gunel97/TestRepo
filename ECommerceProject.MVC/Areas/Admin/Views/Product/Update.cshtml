@@ -1,4 +1,4 @@
-﻿@* @model ProductUpdateViewModel
+﻿@model ProductUpdateViewModel
 
 <div id="main-content" class="h-full w-full bg-gray-50 relative overflow-y-auto lg:ml-64">
     <main>
@@ -30,47 +30,20 @@
                                 <span asp-validation-for="Description"></span>
                             </div>
                             <div class="col-span-6 sm:col-span-3">
+                                <label class="text-sm font-medium text-gray-900 block mb-2"></label>Additional Information
+                                <input asp-for="AdditionalInformation" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Description">
+                                <span asp-validation-for="AdditionalInformation"></span>
+                            </div>
+                            <div class="col-span-6 sm:col-span-3">
                                 <label class="text-sm font-medium text-gray-900 block mb-2">Product Price</label>
-                                <input asp-for="Price" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Price">
-                                <span asp-validation-for="Price"></span>
+                                <input asp-for="BasePrice" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Price">
+                                <span asp-validation-for="BasePrice"></span>
                             </div>
                             <div class="col-span-6 sm:col-span-3">
                                 <label class="text-sm font-medium text-gray-900 block mb-2">Category</label>
                                 <select asp-for="CategoryId" asp-items="Model.CategorySelectListItems" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Category"></select>
                                 <span asp-validation-for="CategoryId"></span>
                             </div>
-                            <div class="col-span-6 sm:col-span-3">
-                                <label class="text-sm font-medium text-gray-900 block mb-2"> Cover Image</label>
-                                <br/>
-                                <input name="CoverImageUrl" value="@Model.CoverImageUrl" type="hidden" />
-                                <img src="~/img/product/@Model.CoverImageUrl" width="100" height="100" />
-                                <br />                          
-                                <input asp-for="CoverImageFile"
-                                       class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                       placeholder="Image" accept="image/*">
-                                <span asp-validation-for="CoverImageFile"></span>
-                            </div>
-                            <div class="col-span-6 sm:col-span-3">
-                                <label class="text-sm font-medium text-gray-900 block mb-2">Images</label>
-                                <br/>
-                                @foreach (var item in Model.Images)
-                                {
-                                    <div style="display:inline">
-                                        <img src="~/img/product/@item.Name" width="100" height="100" />
-                                        <button onclick="deleteProductImage(@item.Id, this)" type="button" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
-                                            <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
-                                            Delete item
-                                        </button>
-                                    </div>
-                                }
-                                
-                                <input asp-for="ImageFiles"
-                                       class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                       placeholder="Image" accept="image/*">
-                                <span asp-validation-for="ImageFiles"></span>
-                            </div>
-                          
-
                             <br />
                         </div>
                         <div asp-validation-summary="All"></div>
@@ -82,7 +55,7 @@
             </div>
         </div>
     </main>
-
+@* 
 <script>
     function deleteProductImage(id, element){
         fetch(`https://localhost:7108/Admin/Product/deleteProductImage/${id}`,{
@@ -95,5 +68,4 @@
             console.log('Error', error);
         });
     }
-</script>
- *@
+</script> *@

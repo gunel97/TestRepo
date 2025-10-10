@@ -379,6 +379,7 @@ wwwroot\images\brand\zara-1-logo-png.png
 wwwroot\images\collections\009furniture-banner-01.jpg
 wwwroot\images\collections\009furniture-banner-02.jpg
 wwwroot\images\collections\009furniture-banner-03.jpg
+wwwroot\images\collections\009furniture-banner-03-e3b37315-8ab7-41a2-979a-1cfc1d692f0c-.jpg
 wwwroot\images\collections\009furniture-banner-04.jpg
 wwwroot\images\collections\009furniture-banner-05.jpg
 wwwroot\images\collections\009furniture-banner-06.jpg
@@ -677,7 +678,7 @@ wwwroot\images\collections\electronic-7.jpg
 wwwroot\images\collections\electronic-8.png
 wwwroot\images\collections\electronic-9.jpg
 wwwroot\images\collections\fruit.png
-wwwroot\images\collections\furniture_cate1.jpg
+wwwroot\images\collections\furniture_cate1-f8d56514-4b36-47fe-940c-4251d20c835e-.jpg
 wwwroot\images\collections\furniture_cate2.jpg
 wwwroot\images\collections\furniture_cate3.jpg
 wwwroot\images\collections\furniture_cate4.jpg
@@ -940,10 +941,20 @@ wwwroot\images\payments\img-3.png
 wwwroot\images\payments\img-4.png
 wwwroot\images\payments\paypal.png
 wwwroot\images\payments\visa.png
+wwwroot\images\products\009furniture-banner-02-32e862f6-6fd8-4cd7-a5c5-783a53b42dfb-.jpg
+wwwroot\images\products\009furniture-banner-02-c386c064-0b4a-4c27-9639-c9218ad3baa4-.jpg
+wwwroot\images\products\009furniture-banner-03-4e86f34a-8df8-4590-87ce-02dc795b5dc6-.jpg
+wwwroot\images\products\009furniture-banner-04-a10ecffd-35d6-4203-936e-100539943e5b-.jpg
+wwwroot\images\products\009furniture-banner-05-8fbbafee-f623-41cb-865e-3f7021ea73dc-.jpg
+wwwroot\images\products\009furniture-banner-06-01d83c62-5231-46fc-8179-dffc4476b22b-.jpg
+wwwroot\images\products\009furniture-banner-07-0af06a4a-6cb0-4800-9bab-787d3b52fd15-.jpg
+wwwroot\images\products\009furniture-banner-07-e16c34c7-4194-489c-aa65-af91d16a3275-.jpg
+wwwroot\images\products\009furniture-banner-08-b1da397d-e993-4494-9354-3b08d1de80de-.jpg
 wwwroot\images\products\albert-black.jpg
 wwwroot\images\products\albert-orange.jpg
 wwwroot\images\products\albert-white.jpg
 wwwroot\images\products\albert-white2.jpg
+wwwroot\images\products\banner-cls-baby1-ca5e02a4-3dc3-40ae-9fb2-34a2f00a034c-.jpg
 wwwroot\images\products\bark-phone-black.jpg
 wwwroot\images\products\bark-phone-blue.jpg
 wwwroot\images\products\bark-phone-blue2.jpg

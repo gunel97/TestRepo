@@ -1,8 +1,13 @@
 ﻿using ECommerceProject.BL.ViewModels;
 using ECommerceProject.DA.DataContext.Entities;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ECommerceProject.BL.Services.Contracts
 {
-    public interface IProductService:ICrudService<Product, ProductViewModel, ProductCreateViewModel, ProductUpdateViewModel> { }
-
+    public interface IProductService : ICrudService<Product, ProductViewModel, ProductCreateViewModel, ProductUpdateViewModel>
+    {
+        Task<ProductCreateViewModel> GetCreateViewModelAsync();
+        Task<List<SelectListItem>> GetProductSelectListItemsAsync();
+        Task<ProductUpdateViewModel> GetUpdateViewModelAsync(int id);
+    }
 }

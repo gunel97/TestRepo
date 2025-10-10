@@ -1,4 +1,5 @@
 using ECommerceProject.BL;
+using ECommerceProject.BL.Constants;
 using ECommerceProject.DA;
 using ECommerceProject.DA.DataContext;
 using ECommerceProject.DA.DataContext.Entities;
@@ -27,6 +28,11 @@ namespace ECommerceProject.MVC
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                 options.Lockout.MaxFailedAccessAttempts = 3;
             }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+
+
+            FilePathConstants.ProductImagePath = Path.Combine(builder.Environment.WebRootPath, "images", "products");
+            FilePathConstants.CategoryImagePath = Path.Combine(builder.Environment.WebRootPath, "images", "collections");
+
 
             var app = builder.Build();
 

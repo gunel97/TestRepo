@@ -38,6 +38,7 @@ namespace ECommerceProject.DA
             services.AddScoped<IWishlistItemRepository, WishlistItemRepository>();
             services.AddScoped<IDiscountCodeRepository, DiscountCodeRepository>();
             services.AddScoped<IAddressRepository, AddressRepository>();
+            services.AddScoped<IColorRepository, ColorRepository>();
 
             return services;
         }

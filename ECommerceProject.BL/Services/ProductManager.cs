@@ -5,6 +5,7 @@ using ECommerceProject.DA.DataContext.Entities;
 using ECommerceProject.DA.DataContext.Repositories.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
@@ -18,13 +19,15 @@ namespace ECommerceProject.BL.Services
         private readonly UserManager<AppUser> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IWishlistItemService _wishlistService;
+        private readonly ICategoryService _categoryService;
 
-        public ProductManager(IRepository<Product> repository, IMapper mapper, UserManager<AppUser> userManager, IHttpContextAccessor httpContextAccessor, IWishlistItemService wishlistService)
+        public ProductManager(IRepository<Product> repository, IMapper mapper, UserManager<AppUser> userManager, IHttpContextAccessor httpContextAccessor, IWishlistItemService wishlistService, ICategoryService categoryService)
             : base(repository, mapper)
         {
             _userManager = userManager;
             _httpContextAccessor = httpContextAccessor;
             _wishlistService = wishlistService;
+            _categoryService = categoryService;
         }
 
         public override async Task<IEnumerable<ProductViewModel>> GetAllAsync(Expression<Func<Product, bool>>? predicate = null, Func<IQueryable<Product>, IIncludableQueryable<Product, object>>? include = null, Func<IQueryable<Product>,
@@ -59,10 +62,45 @@ namespace ECommerceProject.BL.Services
                     product.IsInWishlist = false;
                 }
             }
+            
             return await base.GetAllAsync(predicate: x => !x.IsDeleted
               , include: x => x
               .Include(pv => pv.ProductVariants).ThenInclude(i => i.ProductImages)
-              .Include(pv => pv.ProductVariants).ThenInclude(c => c.Color!));
+              .Include(pv => pv.ProductVariants).ThenInclude(c => c.Color!))
+               ;
         }
+
+        public async Task<ProductCreateViewModel> GetCreateViewModelAsync()
+        {
+            var model = new ProductCreateViewModel();
+            model.CategorySelectListItems = await _categoryService.GetCategorySelectListItemsAsync();
+
+            return model;
+        }
+
+        public async Task<List<SelectListItem>> GetProductSelectListItemsAsync()
+        {
+            var products = await GetAllAsync(predicate: x => !x.IsDeleted);
+
+            return products.Select(c => new SelectListItem
+            {
+                Value = c.Id.ToString(),
+                Text = c.Name,
+            }).ToList();
+        }
+
+        public async Task<ProductUpdateViewModel> GetUpdateViewModelAsync(int id)
+        {
+            var product = await Repository.GetByIdAsync(id);
+
+            if (product == null)
+                return null!;
+
+            var model = Mapper.Map<ProductUpdateViewModel>(product);
+            model.CategorySelectListItems = await _categoryService.GetCategorySelectListItemsAsync();
+
+            return model;
+        }
+
     }
 }

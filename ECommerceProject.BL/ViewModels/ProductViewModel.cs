@@ -1,10 +1,11 @@
-﻿using System;
+﻿using ECommerceProject.DA.DataContext.Entities;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ECommerceProject.DA.DataContext.Entities;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ECommerceProject.BL.ViewModels
 {
@@ -17,8 +18,6 @@ namespace ECommerceProject.BL.ViewModels
         public string? AdditionalInformation { get; set; }
         public decimal BasePrice { get; set; }
         public string? CategoryName { get; set; }
-        //public int CategoryId { get; set; }
-        //public CategoryViewModel? Category { get; set; } 
         public List<ProductVariantViewModel> ProductVariants { get; set; } = [];
         public bool IsInWishlist {  get; set; }
         public List<int> WishlistItemIds { get; set; } = [];
@@ -35,7 +34,16 @@ namespace ECommerceProject.BL.ViewModels
         public List<SelectListItem> CategorySelectListItems { get; set; } = [];
     }
 
-    public class ProductUpdateViewModel { }
+    public class ProductUpdateViewModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = null!;
+        public string Description { get; set; } = null!;
+        public string? AdditionalInformation { get; set; }
+        public decimal BasePrice { get; set; }
+        public int CategoryId { get; set; }
+        public List<SelectListItem> CategorySelectListItems { get; set; } = [];
+    }
 
   
 }

@@ -53,11 +53,18 @@
                     </a>
                 </div>
                 <a asp-controller="product" asp-action="create">
-                <button type="button" data-modal-toggle="add-product-modal" class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium inline-flex items-center rounded-lg text-sm px-3 py-2 text-center sm:ml-auto">
+                <button type="button"  class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium inline-flex items-center rounded-lg text-sm px-3 py-2 text-center sm:ml-auto">
                     <svg class="-ml-1 mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                     Add product
                 </button>
                 </a>
+                <br/>
+                        <a asp-controller="productVariant" asp-action="create">
+                            <button type="button" class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium inline-flex items-center rounded-lg text-sm px-3 py-2 text-center sm:ml-auto">
+                                <svg class="-ml-1 mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                                Add product Variant
+                            </button>
+                        </a>
             </div>
         </div>
     </div>
@@ -102,7 +109,36 @@
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">        
                         @foreach (var product in Model)
-                        {
+                                {
+                                    <tr class="hover:bg-gray-100">
+                                        <td class="p-4 w-4">
+                                            <div class="flex items-center">
+                                                <input id="checkbox-194556" aria-describedby="checkbox-1" type="checkbox" class="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-cyan-200 h-4 w-4 rounded">
+                                                <label for="checkbox-194556" class="sr-only">checkbox</label>
+                                            </div>
+                                        </td>
+
+                                        <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">Base Product - @product.Id</td>
+                                        <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500"></td>
+                                        <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">@product.Name</td>
+                                        <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">@product.CategoryName</td>
+                                        <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900"></td>
+                                        <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900"></td>
+                                        <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900"></td>
+                                        <td class="p-4 whitespace-nowrap space-x-2">
+                                            <a asp-controller="product" asp-action="update" asp-route-id="@product.Id">
+                                                <button type="button" class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
+                                                    <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path></svg>
+                                                    Edit item
+                                                </button>
+                                            </a>
+                                            <button onclick="deleteProduct(@product.Id, this)" type="button" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
+                                                <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                                Delete item
+                                            </button>
+                                        </td>
+
+                                    </tr>
                             @foreach(var productVariant in product.ProductVariants ?? []){
                             <tr class="hover:bg-gray-100">
                                 <td class="p-4 w-4">
@@ -122,13 +158,13 @@
                                 <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">$@product.BasePrice</td>
                                 <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">@productVariant.Quantity</td>
                                  <td class="p-4 whitespace-nowrap space-x-2">
-                                   <a asp-controller="product" asp-action="update" asp-route-id="@productVariant.Id">
+                                   <a asp-controller="productVariant" asp-action="update" asp-route-id="@productVariant.Id">
                                     <button type="button" class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
                                         <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path></svg>
                                          Edit item
                                     </button>
                                     </a>
-                                    <button onclick="deleteProduct(@productVariant.Id, this)" type="button" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
+                                    <button onclick="deleteProductVariant(@productVariant.Id, this)" type="button" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
                                         <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
                                         Delete item
                                     </button>
@@ -171,11 +207,24 @@
     </main>
     
 <script>
+
          function deleteProduct(id, element){
-            fetch(`https://localhost:7108/Admin/Product/deleteProduct/${id}`,{
+            fetch(`/Admin/Product/delete/${id}`,{
                 method:"Post"
             }).
-            then(response=>response.json()).
+            then(response=>response.text()).
+            then(data=>{
+                element.parentNode.parentNode.remove();
+            }).catch(error=>{
+                console.log('Error', error);
+            });
+        }
+
+        function deleteProductVariant(id, element){
+            fetch(`/Admin/ProductVariant/delete/${id}`,{
+                method:"Post"
+            }).
+            then(response=>response.text()).
             then(data=>{
                 element.parentNode.parentNode.remove();
             }).catch(error=>{

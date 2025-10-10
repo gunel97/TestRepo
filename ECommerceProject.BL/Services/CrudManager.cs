@@ -61,7 +61,7 @@ namespace ECommerceProject.BL.Services
             return viewModel;
         }
 
-        public async Task<TViewModel?> GetByIdAsync(int id)
+        public virtual async Task<TViewModel?> GetByIdAsync(int id)
         {
             var entity = await Repository.GetByIdAsync(id);
 
@@ -73,7 +73,7 @@ namespace ECommerceProject.BL.Services
             return viewModel;
         }
 
-        public async Task<bool> UpdateAsync(int id, TUpdateViewModel model)
+        public virtual async Task<bool> UpdateAsync(int id, TUpdateViewModel model)
         {
             var entity = await Repository.GetByIdAsync(id);
 

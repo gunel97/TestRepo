@@ -30,9 +30,8 @@ namespace ECommerceProject.BL.ViewModels
     {
         public int Id { get; set; }
         public string? Name { get; set; }
-        public bool IsDeleted { get; set; }
         public string? Description { get; set; }
         public string? ImageName { get; set; }
-        public IFormFile ImageFile { get; set; } = null!;
+        public IFormFile? ImageFile { get; set; }
     }
 }

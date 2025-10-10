@@ -1,6 +1,8 @@
 ﻿using ECommerceProject.BL.Services.Contracts;
+using ECommerceProject.BL.ViewModels;
 using ECommerceProject.DA.DataContext.Repositories.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.FlowAnalysis.DataFlow;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
@@ -18,12 +20,64 @@ namespace ECommerceProject.MVC.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            //var products = await _productService.GetAllAsync(include:
-            //    x => x.Include(pv => pv.ProductVariants).ThenInclude(c => c.Color!)
-            //    .Include(pv => pv.ProductVariants).ThenInclude(i => i.ProductImages));
-
             var products = await _productService.GetAllAsync();
+
             return View(products.ToList());
+        }
+
+        public async Task<IActionResult> Create()
+        {
+            var model = await _productService.GetCreateViewModelAsync();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(ProductCreateViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                model = await _productService.GetCreateViewModelAsync();
+
+                return View(model);
+            }
+
+            await _productService.CreateAsync(model);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Update(int id)
+        {
+            var model = await _productService.GetUpdateViewModelAsync(id);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(int id, ProductUpdateViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                model = await _productService.GetUpdateViewModelAsync(id);
+                return View(model);
+            }
+
+            var isUpdated = await _productService.UpdateAsync(id, model);
+            if (!isUpdated)
+                return NotFound();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var isDeleted = await _productService.DeleteAsync(id);
+            if (!isDeleted)
+                return NotFound();
+
+            return NoContent();
         }
     }
 }

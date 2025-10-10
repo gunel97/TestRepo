@@ -10,5 +10,4 @@ namespace ECommerceProject.DA.DataContext.Repositories
 
         }
     }
-
 }

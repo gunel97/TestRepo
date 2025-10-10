@@ -30,6 +30,7 @@ namespace ECommerceProject.BL
             services.AddScoped<IOrderService, OrderManager>();
             services.AddScoped<IOrderDetailService, OrderDetailManager>();
             services.AddScoped<IDiscountCodeService, DiscountCodeManager>();
+            services.AddScoped<IColorService, ColorManager>();
             
             services.AddScoped<IHomeService, HomeManager>();
             services.AddScoped<IShopService, ShopManager>();
@@ -37,6 +38,7 @@ namespace ECommerceProject.BL
             services.AddScoped<IFooterService, FooterManager>();
 
             services.AddScoped<BasketManager>();
+            services.AddScoped<FileService>();
 
             return services;
         }

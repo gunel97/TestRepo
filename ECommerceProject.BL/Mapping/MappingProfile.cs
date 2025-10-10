@@ -20,6 +20,8 @@ namespace ECommerceProject.BL.Mapping
             CreateMap<Category, CategoryCreateViewModel>().ReverseMap();
             CreateMap<Category, CategoryUpdateViewModel>().ReverseMap();
 
+           
+
             CreateMap<Product, ProductViewModel>()
                 .ForMember(x => x.CategoryName, opt => opt.MapFrom(src => src.Category == null ? "" : src.Category.Name))
                 .ReverseMap();
@@ -48,7 +50,7 @@ namespace ECommerceProject.BL.Mapping
 
             CreateMap<Bio, BioViewModel>().ReverseMap();
             CreateMap<Bio, BioCreateViewModel>().ReverseMap();
-            CreateMap<Bio, BioUpdateViewModel>().ReverseMap();
+            CreateMap<Bio, ColorUpdateViewModel>().ReverseMap();
 
             CreateMap<Social, SocialViewModel>().ReverseMap();
             CreateMap<Social, SocialCreateViewModel>().ReverseMap();
@@ -70,7 +72,9 @@ namespace ECommerceProject.BL.Mapping
             CreateMap<WishlistItem, WishlistItemCreateViewModel>().ReverseMap();
             CreateMap<WishlistItem, WishlistItemUpdateViewModel>().ReverseMap();
 
-            
+            CreateMap<Color, ColorViewModel>().ReverseMap();
+            CreateMap<Color, ColorCreateViewModel>().ReverseMap();
+            CreateMap<Color, ColorUpdateViewModel>().ReverseMap();
 
             CreateMap<OrderDetail, OrderDetailViewModel>().ReverseMap();
             CreateMap<OrderDetail, OrderDetailCreateViewModel>().ReverseMap();
