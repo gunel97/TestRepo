@@ -1,12 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ECommerceProject.BL.Services.Contracts;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceProject.MVC.Areas.Admin.Controllers
 {
     public class OrderController : AdminController
     {
-        public IActionResult Index()
+        private readonly IOrderService _orderService;
+
+        public OrderController(IOrderService orderService)
         {
-            return View();
+            _orderService = orderService;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var orders = await _orderService.GetAllAsync(include: x => 
+            x.Include(o => o.OrderDetails).ThenInclude(p=>p.ProductVariant)
+            .Include(a=>a.Address)
+            .Include(u=>u.AppUser!));
+            return View(orders);
         }
     }
 }

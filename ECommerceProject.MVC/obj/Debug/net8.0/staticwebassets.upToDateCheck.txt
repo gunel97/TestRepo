@@ -384,6 +384,7 @@ wwwroot\images\collections\009furniture-banner-04.jpg
 wwwroot\images\collections\009furniture-banner-05.jpg
 wwwroot\images\collections\009furniture-banner-06.jpg
 wwwroot\images\collections\009furniture-banner-07.jpg
+wwwroot\images\collections\009furniture-banner-07-9efd04e7-af9b-4f28-8e8d-bcfaf18f1a58-.jpg
 wwwroot\images\collections\009furniture-banner-08.jpg
 wwwroot\images\collections\accessories2_b1.jpg
 wwwroot\images\collections\accessories2_b2.jpg

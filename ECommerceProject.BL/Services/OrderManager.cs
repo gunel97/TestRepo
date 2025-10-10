@@ -12,7 +12,7 @@ using System.Security.Claims;
 
 namespace ECommerceProject.BL.Services
 {
-    public class OrderManager:CrudManager<Order, OrderViewModel, OrderCreateViewModel, OrderUpdateViewModel>,
+    public class OrderManager : CrudManager<Order, OrderViewModel, OrderCreateViewModel, OrderUpdateViewModel>,
         IOrderService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -123,10 +123,23 @@ namespace ECommerceProject.BL.Services
         public async Task<List<OrderViewModel>> GetOrderViewModelsAsync(string userId)
         {
             var model = await GetAllAsync(predicate: x => x.AppUser!.Id == userId && !x.IsDeleted,
-                include: x => x.Include(od => od.OrderDetails).ThenInclude(pv => pv.ProductVariant).ThenInclude(c=>c.Color!)
-                .Include(p=>p.OrderDetails).ThenInclude(p=>p.ProductVariant).ThenInclude(p=>p.Product!));
+                include: x => x.Include(od => od.OrderDetails).ThenInclude(pv => pv.ProductVariant).ThenInclude(c => c.Color!)
+                .Include(p => p.OrderDetails).ThenInclude(p => p.ProductVariant).ThenInclude(p => p.Product!));
 
             return model.ToList();
         }
+
+        //public async Task<OrderUpdateViewModel> GetOrderUpdateViewModelAsync(int id)
+        //{
+        //    var order = await Repository.GetAsync(predicate: x => x.Id == id,
+        //        include: x => x.Include(o => o.OrderDetails).ThenInclude(p => p.ProductVariant)
+        //        .Include(a => a.Address).Include(u => u.AppUser!));
+
+        //    if (order == null)
+        //        return null!;
+        //    var model = Mapper.Map<OrderUpdateViewModel>(order);
+
+        //    return model;
+        //} 
     }
 }

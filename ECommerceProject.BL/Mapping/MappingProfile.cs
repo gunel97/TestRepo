@@ -20,8 +20,6 @@ namespace ECommerceProject.BL.Mapping
             CreateMap<Category, CategoryCreateViewModel>().ReverseMap();
             CreateMap<Category, CategoryUpdateViewModel>().ReverseMap();
 
-           
-
             CreateMap<Product, ProductViewModel>()
                 .ForMember(x => x.CategoryName, opt => opt.MapFrom(src => src.Category == null ? "" : src.Category.Name))
                 .ReverseMap();
@@ -40,6 +38,7 @@ namespace ECommerceProject.BL.Mapping
 
             CreateMap<Order, OrderViewModel>()
                 .ForMember(x => x.Discount, opt=>opt.MapFrom(src=>src.DiscountCode == null ? "" : src.DiscountCode.Code))
+                .ForMember(x=>x.AppUserName, opt=>opt.MapFrom(src=>src.AppUser == null ? "" : src.AppUser.UserName))
                 .ReverseMap();
             CreateMap<Order, OrderCreateViewModel>().ReverseMap();
             CreateMap<Order, OrderUpdateViewModel>().ReverseMap();

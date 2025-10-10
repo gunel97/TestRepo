@@ -7,5 +7,6 @@ namespace ECommerceProject.BL.Services.Contracts
     public interface IColorService : ICrudService<Color, ColorViewModel, ColorCreateViewModel, ColorUpdateViewModel>
     {
         Task<List<SelectListItem>> GetColorSelectListItemsAsync();
+        Task<ColorUpdateViewModel> GetColorUpdateViewModelAsync(int id);
     }
 }

@@ -16,6 +16,18 @@ namespace ECommerceProject.BL.Services
 
         }
 
+        public async Task<ColorUpdateViewModel> GetColorUpdateViewModelAsync(int id)
+        {
+            var color = await Repository.GetByIdAsync(id);
+
+            if (color == null)
+                return null!;
+
+            var colorUpdateViewModel = Mapper.Map<ColorUpdateViewModel>(color);
+
+            return colorUpdateViewModel;
+        }
+
         public async Task<List<SelectListItem>> GetColorSelectListItemsAsync()
         {
             var colors = await GetAllAsync(predicate: x => !x.IsDeleted);

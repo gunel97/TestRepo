@@ -15,6 +15,7 @@ namespace ECommerceProject.BL.ViewModels
         public int Id { get; set; }
         public string? Discount {  get; set; }
         public string? AppUserId {  get; set; }
+        public string? AppUserName { get; set; }
         public List<OrderDetailViewModel> OrderDetails { get; set; } = [];
         public bool GiftWrap { get; set; }
         public string? Note {  get; set; }
@@ -29,23 +30,6 @@ namespace ECommerceProject.BL.ViewModels
 
     }
 
-
-    public class OrderDetailViewModel
-    {
-        public int Id { get; set; }
-        public int Quantity { get; set; }
-        public int ProductVariantId { get; set; }
-        public ProductVariantViewModel? ProductVariant { get; set; }
-        public decimal TotalPrice { get; set; }
-    }
-
-    public class OrderDetailCreateViewModel
-    {
-        public int Quantity { get; set; }
-        public int OrderId { get; set; }
-        public int ProductVariantId { get; set; }
-        public ProductVariantViewModel ProductVariantViewModel { get; set; } = null!;
-    }
     public class OrderCreateViewModel
     {
         public bool HasAppliedDiscount {  get; set; }
@@ -65,10 +49,6 @@ namespace ECommerceProject.BL.ViewModels
         public BasketViewModel? BasketViewModel { get; set; }
     }
 
-    public class OrderDetailUpdateViewModel
-    {
-
-    }
     public class OrderUpdateViewModel
     {
 

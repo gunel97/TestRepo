@@ -81,7 +81,8 @@ namespace ECommerceProject.DA.DataContext.Entities
     {
         public string Name { get; set; } = null!;
         public string? IconName { get; set; }
-        public List<ProductVariant> ProductVariants = [];
+        public string HexCode { get; set; } = null!;
+        public List<ProductVariant> ProductVariants { get; set; } = [];
     }
 
     public class ProductVariant : TimeStample
