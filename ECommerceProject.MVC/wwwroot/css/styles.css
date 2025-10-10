@@ -6797,6 +6797,18 @@ header.header-bg {
   background: conic-gradient(#c8ad7f 0deg 360deg);
 }
 
+.bg-color-grey {
+    background: conic-gradient(#808080 0deg 360deg);
+}
+
+.bg-color-cream {
+    background: conic-gradient(#fffdd0 0deg 360deg);
+}
+
+.bg-color-navy {
+    background: conic-gradient(#000080 0deg 360deg);
+}
+
 .bg-color-black {
   background: conic-gradient(#000000 0deg 360deg);
 }
@@ -6825,8 +6837,16 @@ header.header-bg {
   background: conic-gradient(#caffd6 0deg 360deg);
 }
 
+.bg-color-light-grey {
+    background: conic-gradient(#d3d3d3 0deg 360deg);
+}
+
 .bg-color-orange {
   background: conic-gradient(#ffa500 0deg 360deg);
+}
+
+.bg-color-copper {
+    background: conic-gradient(#b87333 0deg 360deg);
 }
 
 .bg-color-light-blue {

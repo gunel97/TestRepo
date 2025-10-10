@@ -147,7 +147,6 @@ function cleanBasket() {
         })
 }
 
-
 function changeQuantity(productVariantId, change) {
     const productVariantIdInput = document.getElementById(`productVariantId${productVariantId}`);
     const currentQuantity = parseInt(productVariantIdInput.value);
@@ -216,8 +215,38 @@ function updateTotalQuickAdd(productIdText, change) {
     //setCurrentQuantity(productIdText, currentQuantity);
 }
 
+function updateTotalQuickView(productIdText, change) {
+    const productQuantityQuickView = document.getElementById(`productQuantityQuickView${productIdText}`);
+
+    let prevQuantity = parseInt(productQuantityQuickView.value);
+    console.log(prevQuantity);
+    if (prevQuantity + change == 0) {
+        return;
+    }
+    let currentQuantity = prevQuantity + change;
+    console.log(currentQuantity);
+
+    const productPriceQuickView = parseInt(document.getElementById(`productPriceQuickView${productIdText}`).innerText);
+    console.log(productPriceQuickView);
+    const totalPriceQuickView = document.getElementById(`totalPriceQuickView${productIdText}`);
+
+
+    const result = currentQuantity * productPriceQuickView;
+    productQuantityQuickView.value = currentQuantity;
+    totalPriceQuickView.textContent = "$ " + result.toFixed(2);
+    productPriceQuickView.textContent = currentQuantity;
+
+    //setCurrentQuantity(productIdText, currentQuantity);
+}
+
 function getQuantity(productId, productIdText) {
     var quantity = parseInt(document.getElementById(`productQuantityQuickAdd${productId}`).value);
+    console.log(quantity);
+    addToBasket(productIdText, quantity);
+}
+
+function getQuantityQV(productId, productIdText) {
+    var quantity = parseInt(document.getElementById(`productQuantityQuickView${productId}`).value);
     console.log(quantity);
     addToBasket(productIdText, quantity);
 }
@@ -228,7 +257,10 @@ function getQuantityD(productId, productIdText) {
     addToBasket(productIdText, quantity);
 }
 
-function setSelectedColor(variantId, productId, imageName , element) {
+
+function setSelectedColor(variantId, productId, imageName, element) {
+    console.log(productId);
+    console.log(variantId);
     const productImageQuickAdd = document.getElementById(`productImageQuickAdd${productId}`);
     console.log(imageName);
     productImageQuickAdd.src = `/images/products/${imageName}`;
@@ -236,6 +268,17 @@ function setSelectedColor(variantId, productId, imageName , element) {
     if (element.value == false)
         return;
     const hiddenInput = document.getElementById(`product${productId}`);
+    hiddenInput.value = variantId;
+}
+
+function setSelectedColorQV(variantId, productId, imageName, element) {
+    const productImageQV = document.getElementById(`productImageQV${productId}`);
+    console.log(imageName);
+    productImageQV.src = `/images/products/${imageName}`;
+
+    if (element.value == false)
+        return;
+    const hiddenInput = document.getElementById(`productQV${productId}`);
     hiddenInput.value = variantId;
 }
 

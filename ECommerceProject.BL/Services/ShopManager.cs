@@ -32,7 +32,7 @@ namespace ECommerceProject.BL.Services
             var shopViewModel = new ShopViewModel
             {
                 Categories = categories.ToList(),
-                Products = products.ToList(),
+                Products = products.Take(4).ToList(),
             };
 
             return shopViewModel;

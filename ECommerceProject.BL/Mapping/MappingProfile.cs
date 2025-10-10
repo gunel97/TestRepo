@@ -30,6 +30,7 @@ namespace ECommerceProject.BL.Mapping
                 .ForMember(x => x.ColorName, opt => opt.MapFrom(src => src.Color == null ? "" : src.Color.Name))
                 .ForMember(x => x.ImageNames, opt => opt.MapFrom(src => src.ProductImages.Select(i => i.ImageName).ToList()))
                 .ForMember(x => x.ColorIconName, opt => opt.MapFrom(src => src.Color == null ? "" : src.Color.IconName))
+                .ForMember(x => x.ColorHexCode, opt => opt.MapFrom(src => src.Color == null ? "" : src.Color.HexCode))
                 .ForMember(x => x.ProductName, opt => opt.MapFrom(src => src.Product == null ? "" : src.Product.Name))
                 .ForMember(x => x.Priced, opt => opt.MapFrom(src => src.Product!.BasePrice))
                 .ReverseMap();

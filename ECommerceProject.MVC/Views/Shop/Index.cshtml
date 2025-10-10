@@ -184,8 +184,10 @@
                        <partial name="_ProductCardPartial" model="@product"></partial>
                     </div>
                 }
+
+                <input value="@ViewBag.ProductCount" type="hidden" id="productCount" />
                 <!-- pagination -->
-                <ul class="wg-pagination tf-pagination-list">
+            @*     <ul class="wg-pagination tf-pagination-list">
                     <li class="active">
                         <a href="#" class="pagination-link">1</a>
                     </li>
@@ -203,9 +205,15 @@
                             <span class="icon icon-arrow-right"></span>
                         </a>
                     </li>
-                </ul>
+                </ul> *@
+      
+                        
+                 
             </div>
-
+           
+         @*    <button id="btnLoadMore" class="tf-btn btn-sm radius-3 btn-fill btn-icon animate-hover-btn" type="button">
+                Load More
+            </button> *@
             <!-- modal quick_add -->
             @foreach (var product in products)
             {
@@ -243,11 +251,12 @@
                 </div>
                 <div id="categories" class="collapse show">
                     <ul class="list-categoris current-scrollbar mb_36">
-                        <li class="cate-item current"><a href="shop-default.html"><span>Fashion</span></a></li>
-                        <li class="cate-item"><a href="shop-default.html"><span>Men</span></a></li>
-                        <li class="cate-item"><a href="shop-default.html"><span>Women</span></a></li>
-                        <li class="cate-item"><a href="shop-default.html"><span>Denim</span></a></li>
-                        <li class="cate-item"><a href="shop-default.html"><span>Dress</span></a></li>
+                        @foreach (var category in categories)
+                        {
+                            <li class="cate-item"><a href="shop-default.html"><span>@category.Name</span></a></li>
+                        }
+                      @*   <li class="cate-item current"><a href="shop-default.html"><span>Fashion</span></a></li> *@
+
                     </ul>
                 </div>
             </div>
@@ -289,7 +298,7 @@
                     </div>
                     <div id="price" class="collapse show">
                         <div class="widget-price filter-price">
-                            <div class="price-val-range" id="price-value-range" data-min="0" data-max="500"></div>
+                            <div class="price-val-range" id="price-value-range" data-min="0" data-max="5000"></div>
                             <div class="box-title-price">
                                 <span class="title-price">Price :</span>
                                 <div class="caption-price">
@@ -522,3 +531,29 @@
 <script src="~/js/jquery.min.js"></script>
 <script src="~/js/shop.js"></script>
 <script src="~/js/nouislider.min.js"></script>
+
+<script>
+    const loadMoreBtn = document.getElementById("btnLoadMore");
+    const gridLayout = document.getElementById("gridLayout");
+    let productCount = document.getElementById("productCount").value;
+    let skip =4;
+
+        loadMoreBtn.addEventListener('click', function(){
+            console.log("load more");
+            console.log(productCount);
+            console.log(skip);
+        fetch(`/shop/partial?skip=${skip}`)
+        .then(response=>response.text())
+        .then(html=>{
+            gridLayout.innerHTML+=html;
+        });
+
+        skip+=3;
+
+        console.log(skip);
+            console.log(productCount);
+
+        if(skip>=productCount)
+        loadMoreBtn.remove();
+    });
+</script>

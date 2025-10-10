@@ -22,19 +22,41 @@ function loadWishlist() {
 
                         console.log("wishlist item product id");
                         console.log(item.product.id);
+
                         const productWishlistIcon = document.getElementById(`productWishlistIcon${item.product.id}`);
 
                         if (item.product.isInWishlist) {
-                            productWishlistIcon.innerHTML = `
+                                productWishlistIcon.innerHTML = `
                         <span onclick="removeFromWishlistHome(${item.product.id})" class="icon icon-delete"></span>
                         <span class="tooltip">Remove from Wishlist</span>
                         `;
+                            
                         }
                     }
                 )
             }
             
             wishlistCount.innerText =data.count ;
+        });
+}
+
+function loadWishlistIcon() {
+    console.log("loadwishlistIcon");
+
+    fetch('/wishlist/getwishlistj', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if (data == null) {
+                return;
+            }
+
+            wishlistCount.innerText = data.count;
         });
 }
 
@@ -85,12 +107,14 @@ function removeFromWishlistHome(id) {
                 console.log("remove wishlist home ok");
                 loadWishlist();
 
-                const productWishlistIcon = document.getElementById(`productWishlistIcon${id}`);
+              
+                    const productWishlistIcon = document.getElementById(`productWishlistIcon${id}`);
 
-                productWishlistIcon.innerHTML = `
+                    productWishlistIcon.innerHTML = `
                     <span onclick="addToWishlist(${id})" class="icon icon-heart"></span>
                     <span class="tooltip">Add to Wishlist</span>`;
-
+                
+                loadWishlist();
             }
             else {
                 alert('Failed to remove from wishlist');
@@ -109,6 +133,7 @@ function deleteItemFromWishlistPages(id, element) {
         .then(response => {
             if (response.ok) {
                 element.parentNode.parentNode.parentNode.remove();
+                loadWishlistIcon();
             }
             else {
                 alert('Failed to remove from wishlist');
@@ -121,7 +146,15 @@ function deleteItemFromWishlistPages(id, element) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    loadWishlist();
+
+    const currentPath = window.location.pathname.toLowerCase();
+
+    if (!currentPath.includes('/home/index') && !currentPath.includes('/shop/index')) {
+        loadWishlistIcon();
+    }
+    else {
+        loadWishlist();
+    }
 });
 
 function addToWishlist(productId) {

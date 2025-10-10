@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,8 +20,11 @@ namespace ECommerceProject.BL.ViewModels
         public List<OrderDetailViewModel> OrderDetails { get; set; } = [];
         public bool GiftWrap { get; set; }
         public string? Note {  get; set; }
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; } = null!;
         public decimal TotalPrice { get; set; } 
+        public decimal DiscountAmount { get; set; }
+        public decimal EndPrice { get; set; }
         public int TotalCount { get; set; }
         public OrderStatus OrderStatus { get; set; } 
         public PaymentMethod PaymentMethod { get; set; }
@@ -36,6 +40,8 @@ namespace ECommerceProject.BL.ViewModels
         public string? Discount { get; set; }
         public int? DiscountCodeId { get; set; }
         public string? AppUserId { get; set; }
+        public decimal DiscountAmount { get; set; }
+        public decimal EndPrice { get; set; }
         public List<OrderDetailCreateViewModel> OrderDetails { get; set; } = [];
         public bool GiftWrap { get; set; }
         public string? Note { get; set; }

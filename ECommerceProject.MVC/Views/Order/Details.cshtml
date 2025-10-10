@@ -34,14 +34,6 @@
                     </div>
                     <div class="tf-grid-layout md-col-2 gap-15">
                         <div class="item">
-                            <div class="text-2 text_black-2">Item</div>
-                            <div class="text-2 mt_4 fw-6">Fashion</div>
-                        </div>
-                        <div class="item">
-                            <div class="text-2 text_black-2">Courier</div>
-                            <div class="text-2 mt_4 fw-6">Ribbed modal T-shirt</div>
-                        </div>
-                        <div class="item">
                             <div class="text-2 text_black-2">Start Time</div>
                             <div class="text-2 mt_4 fw-6">@Model.CreatedAt</div>
                         </div>
@@ -52,9 +44,6 @@
                     </div>
                     <div class="widget-tabs style-has-border widget-order-tab">
                         <ul class="widget-menu-tab">
-                            <li class="item-title active">
-                                <span class="inner">Order History</span>
-                            </li>
                             <li class="item-title">
                                 <span class="inner">Item Details</span>
                             </li>
@@ -66,55 +55,6 @@
                             </li>
                         </ul>
                         <div class="widget-content-tab">
-                            <div class="widget-content-inner active">
-                                <div class="widget-timeline">
-                                    <ul class="timeline">
-                                        <li>
-                                            <div class="timeline-badge success"></div>
-                                            <div class="timeline-box">
-                                                <a class="timeline-panel" href="#">
-                                                    <div class="text-2 fw-6">Product Shipped</div>
-                                                    <span>10/07/2024 4:30pm</span>
-                                                </a>
-                                                <p>
-                                                    <strong>Courier Service : </strong>FedEx World Service Center
-                                                </p>
-                                                <p><strong>Estimated Delivery Date : </strong>12/07/2024</p>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="timeline-badge success"></div>
-                                            <div class="timeline-box">
-                                                <a class="timeline-panel" href="#">
-                                                    <div class="text-2 fw-6">Product Shipped</div>
-                                                    <span>10/07/2024 4:30pm</span>
-                                                </a>
-                                                <p><strong>Tracking Number : </strong>2307-3215-6759</p>
-                                                <p><strong>Warehouse : </strong>T-Shirt 10b</p>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="timeline-badge"></div>
-                                            <div class="timeline-box">
-                                                <a class="timeline-panel" href="#">
-                                                    <div class="text-2 fw-6">Product Packaging</div>
-                                                    <span>12/07/2024 4:34pm</span>
-                                                </a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="timeline-badge"></div>
-                                            <div class="timeline-box">
-                                                <a class="timeline-panel" href="#">
-                                                    <div class="text-2 fw-6">Order Placed</div>
-                                                    <span>11/07/2024 2:36pm</span>
-                                                </a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
                             <div class="widget-content-inner">
                                 @foreach (var item in Model.OrderDetails ?? [])
                                 {
@@ -124,7 +64,8 @@
                                     </figure>
                                         <div class="content">
                                             <div class="text-2 fw-6">@item.ProductVariant?.ProductName</div>
-                                            <div class="mt_4"><span class="fw-6">Price :</span>$ @item.ProductVariant?.Priced</div>
+                                            <div class="mt_4"><span class="fw-6">Price :</span> $@item.ProductVariant?.Priced</div>
+                                            <div class="mt_4"><span class="fw-6">Quantity :</span> @item.Quantity</div>
                                             <div class="mt_4"><span class="fw-6">Color :</span> @item.ProductVariant?.ColorName</div>
                                         </div>                                 
                                 </div>
@@ -136,12 +77,12 @@
                                     </li>
                                     <li class="d-flex justify-content-between text-2 mt_4 pb_8 line">
                                         <span>Total Discounts</span>
-                                        <span class="fw-6">$10</span>
+                                        <span class="fw-6">$@Model.DiscountAmount</span>
 
                                     </li>
                                     <li class="d-flex justify-content-between text-2 mt_8">
                                         <span>Order Total</span>
-                                        <span class="fw-6">$18.95</span>
+                                        <span class="fw-6">$@Model.EndPrice</span>
                                     </li>
                                 </ul>
                             </div>
@@ -160,10 +101,10 @@
                             <div class="widget-content-inner">
                                 <p class="text-2 text_success">Thank you Your order has been received</p>
                                 <ul class="mt_20">
-                                    <li>Order Number : <span class="fw-7">#17493</span></li>
-                                    <li>Date : <span class="fw-7"> 17/07/2024, 02:34pm</span></li>
-                                    <li>Total : <span class="fw-7">$18.95</span></li>
-                                    <li>Payment Methods : <span class="fw-7">Cash on Delivery</span></li>
+                                    <li>Order Number : <span class="fw-7">#@Model.Id</span></li>
+                                    <li>Date : <span class="fw-7">@Model.CreatedAt</span></li>
+                                    <li>Total : <span class="fw-7">$@Model.EndPrice</span></li>
+                                    <li>Payment Methods : <span class="fw-7">@Model.PaymentMethod.ToString()</span></li>
 
                                 </ul>
                             </div>

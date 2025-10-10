@@ -31,10 +31,10 @@
                         <div class="variant-picker-values">
                             @foreach (var variant in Model.ProductVariants ?? [])
                             {
-                                <input onchange="setSelectedColor(@variant.Id, @Model.Id , '@variant.CoverImageName', this)" id="values-@variant.ColorName?.ToLower()" 
+                                <input onchange="setSelectedColor(@variant.Id, @Model.Id , '@variant.CoverImageName', this)" id="values-@variant.Id-@variant.ColorName?.ToLower()"
                                 type="radio" name="color" checked>
-                                <label class="hover-tooltip radius-60" for="values-@variant.ColorName?.ToLower()" data-value="@variant.ColorName">
-                                    <span class="btn-checkbox bg-color-orange"></span>
+                                <label class="hover-tooltip radius-60" for="values-@variant.Id-@variant.ColorName?.ToLower()" data-value="@variant.ColorName">
+                                    <span style="background-color: #@variant.ColorHexCode;" class="btn-checkbox"></span>
                                     <span class="tooltip">@variant.ColorName</span>
                                 </label>
                             }

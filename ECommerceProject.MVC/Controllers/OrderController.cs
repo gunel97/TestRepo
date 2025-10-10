@@ -107,15 +107,16 @@ namespace ECommerceProject.MVC.Controllers
                 var discount = await _orderService.GetDiscount(model.Discount);
 
                 if (discount != null)
-                {
-                    model.TotalPrice -= (model.TotalPrice * discount.SalePercentage) / 100;
+                { 
                     model.DiscountCodeId = discount.Id;
+                    model.DiscountAmount= (model.TotalPrice * discount.SalePercentage) / 100;
+                    model.EndPrice = model.TotalPrice - model.DiscountAmount;
                 }
             }
 
             await _orderService.CreateAsync(model);
             _basketManager.CleanBasket();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index");
         }
 
         [HttpPost]

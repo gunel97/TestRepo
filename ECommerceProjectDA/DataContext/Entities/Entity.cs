@@ -126,6 +126,8 @@ namespace ECommerceProject.DA.DataContext.Entities
         public bool GiftWrap { get; set; }
         public string? Note { get; set; }
         public string Email { get; set; } = null!;
+        public decimal DiscountAmount { get; set; }
+        public decimal EndPrice { get; set; }
         public OrderStatus OrderStatus { get; set; }
         public PaymentMethod PaymentMethod { get; set; }
         public int AddressId { get; set; }

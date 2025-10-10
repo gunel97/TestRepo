@@ -19,6 +19,7 @@ namespace ECommerceProject.BL.ViewModels
         public int ColorId { get; set; }
         public string? ColorName { get; set; }
         public string? ColorIconName { get; set; }
+        public string? ColorHexCode { get; set; }
         public string? CoverImageName { get; set; }
         public IList<string> ImageNames { get; set; } = [];
     }

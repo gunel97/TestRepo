@@ -1,5 +1,6 @@
 ﻿using ECommerceProject.BL.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceProject.MVC.Controllers
 {
@@ -16,7 +17,17 @@ namespace ECommerceProject.MVC.Controllers
         {
             var model = await _shopService.GetShopViewModelAsync();
 
+            ViewBag.ProductCount = model.Products.Count;
+
             return View(model);
+        }
+
+        public async Task<IActionResult> Partial(int skip)
+        {
+            var model = await _shopService.GetShopViewModelAsync();
+            var products = model.Products.Skip(skip).Take(4);
+
+            return PartialView("_ProductCardPartial", products);
         }
     }
 }
