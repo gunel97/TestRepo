@@ -129,6 +129,25 @@ namespace ECommerceProject.BL.Services
             return model.ToList();
         }
 
+        public async Task<OrderViewModel> GetDetailsOfOrderAsync(int orderId)
+        {
+            var order = await GetAsync(predicate: x => x.Id == orderId && !x.IsDeleted,
+                include: x => x.Include(od => od.OrderDetails).ThenInclude(pv => pv.ProductVariant).ThenInclude(p => p.Product!)
+                .Include(od => od.OrderDetails).ThenInclude(pv => pv.ProductVariant).ThenInclude(c => c.Color!)
+                .Include(a => a.Address));
+
+
+            if (order == null)
+                return null!;
+
+
+            foreach (var detail in order.OrderDetails)
+            {
+                detail.TotalPrice = detail.ProductVariant!.Priced * detail.Quantity;
+            }
+            return order;
+        }
+
         //public async Task<OrderUpdateViewModel> GetOrderUpdateViewModelAsync(int id)
         //{
         //    var order = await Repository.GetAsync(predicate: x => x.Id == id,

@@ -7,10 +7,12 @@ namespace ECommerceProject.MVC.Areas.Admin.Controllers
     public class OrderController : AdminController
     {
         private readonly IOrderService _orderService;
+        private readonly IOrderDetailService _orderDetailService;
 
-        public OrderController(IOrderService orderService)
+        public OrderController(IOrderService orderService, IOrderDetailService orderDetailService)
         {
             _orderService = orderService;
+            _orderDetailService = orderDetailService;
         }
 
         public async Task<IActionResult> Index()
@@ -19,7 +21,15 @@ namespace ECommerceProject.MVC.Areas.Admin.Controllers
             x.Include(o => o.OrderDetails).ThenInclude(p=>p.ProductVariant)
             .Include(a=>a.Address)
             .Include(u=>u.AppUser!));
+
             return View(orders);
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var order = await _orderService.GetDetailsOfOrderAsync(id);
+
+            return View(order);
         }
     }
 }

@@ -17,6 +17,8 @@ namespace ECommerceProject.BL.ViewModels
         public string? Description { get; set; }
         public string? AdditionalInformation { get; set; }
         public decimal BasePrice { get; set; }
+        public int CategoryId { get; set; }
+        public Category? Category { get; set; }
         public string? CategoryName { get; set; }
         public List<ProductVariantViewModel> ProductVariants { get; set; } = [];
         public bool IsInWishlist {  get; set; }

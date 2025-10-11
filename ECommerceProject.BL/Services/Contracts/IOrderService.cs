@@ -11,5 +11,6 @@ namespace ECommerceProject.BL.Services.Contracts
         Task<DiscountCodeViewModel> GetDiscount(string discountCode);
 
         Task<List<OrderViewModel>> GetOrderViewModelsAsync(string userId);
+        Task<OrderViewModel> GetDetailsOfOrderAsync(int orderId);
     }
 }

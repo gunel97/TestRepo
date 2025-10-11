@@ -20,9 +20,9 @@ namespace ECommerceProject.MVC.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var products = await _productService.GetAllAsync();
+            var products = await _productService.GetProductsAndCategory();
 
-            return View(products.ToList());
+            return View(products);
         }
 
         public async Task<IActionResult> Create()

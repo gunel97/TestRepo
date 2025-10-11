@@ -9,5 +9,6 @@ namespace ECommerceProject.BL.Services.Contracts
         Task<ProductCreateViewModel> GetCreateViewModelAsync();
         Task<List<SelectListItem>> GetProductSelectListItemsAsync();
         Task<ProductUpdateViewModel> GetUpdateViewModelAsync(int id);
+        Task<List<ProductViewModel>> GetProductsAndCategory();
     }
 }

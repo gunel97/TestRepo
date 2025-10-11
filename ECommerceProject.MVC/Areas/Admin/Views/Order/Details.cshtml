@@ -1,4 +1,4 @@
-﻿ @model List<OrderViewModel>
+﻿ @model OrderViewModel
 
 <div id="main-content" class="h-full w-full bg-gray-50 relative overflow-y-auto lg:ml-64">
     <main>
@@ -23,12 +23,12 @@
                   <li>
                     <div class="flex items-center">
                       <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                      <span class="text-gray-400 ml-1 md:ml-2 text-sm font-medium" aria-current="page">Orders</span>
+                      <span class="text-gray-400 ml-1 md:ml-2 text-sm font-medium" aria-current="page">Categories</span>
                     </div>
                   </li>
                 </ol>
             </nav>
-            <h1 class="text-xl sm:text-2xl font-semibold text-gray-900">All orders</h1>
+            <h1 class="text-xl sm:text-2xl font-semibold text-gray-900">Details</h1>
         </div>
         <div class="block sm:flex items-center md:divide-x md:divide-gray-100">
             <form class="sm:pr-3 mb-4 sm:mb-0" action="#" method="GET">
@@ -37,6 +37,9 @@
                 <input type="text" name="email" id="products-search" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Search for products">
                 </div>
             </form>
+            <div class="flex items-center sm:justify-end w-full">
+
+            </div>
         </div>
     </div>
 </div>
@@ -54,41 +57,32 @@
                                 </div>
                             </th>
                             <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
-                                ID
+                                Product Id
                             </th>
                             <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
-                                UserName
+                                Product Image
                             </th>
                             <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
-                                Email
+                               Product Name
                             </th>
                             <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
-                                Created Time
+                                Color
                             </th>
                             <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
-                                Address
+                                Quantity
                             </th>
                             <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
-                                Note
+                                Price
                             </th>
-                            <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
-                                Total Price
-                            </th>
-                            <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
-                                OrderStatus
-                            </th>
-                            <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
-                                Payment Method
-                            </th>
-                            <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
-                                Gift Wrap Request
-                            </th>
+                                    <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                                       Total Price
+                                    </th>
                             <th scope="col" class="p-4">
                             </th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">   
-                            @foreach (var order in Model)
+                            @foreach (var orderDetail in Model.OrderDetails)
                             {
                                 <tr class="hover:bg-gray-100">
                                     <td class="p-4 w-4">
@@ -98,48 +92,41 @@
                                         </div>
                                     </td>
                                         <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
-                                            <div class="text-base font-semibold text-gray-900">@order.Id</div>
+                                            <div class="text-base font-semibold text-gray-900">@orderDetail.ProductVariantId</div>
+                                        </td>
+                                        <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
+                                            <img src="~/images/products/@orderDetail.ProductVariant?.CoverImageName" width="100" height="100" />
                                         </td>
                                         <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
-                                        <div class="text-base font-semibold text-gray-900">@order.AppUserName</div>
+                                            <div class="text-base font-semibold text-gray-900">@orderDetail.ProductVariant?.ProductName</div>
                                         </td>
                                         <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
-                                            <div class="text-base font-semibold text-gray-900">@order.Email</div>
+                                        <div class="text-base font-semibold text-gray-900">@orderDetail.ProductVariant?.ColorName</div>
                                         </td>
                                         <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
-                                            <div class="text-base font-semibold text-gray-900">@order.CreatedAt</div>
+                                            <div class="text-base font-semibold text-gray-900">@orderDetail.Quantity</div>
                                         </td>
                                         <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
-                                            <div class="text-base font-semibold text-gray-900">@order.Address?.Adress</div>
+                                            <div class="text-base font-semibold text-gray-900">@orderDetail.ProductVariant?.Priced</div>
                                         </td>
                                         <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
-                                            <div class="text-base font-semibold text-gray-900">@order.Note</div>
+                                            <div class="text-base font-semibold text-gray-900">@orderDetail.TotalPrice</div>
                                         </td>
-                                        <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
-                                            <div class="text-base font-semibold text-gray-900">@order.TotalPrice</div>
-                                        </td>
-                                        <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
-                                            <div class="text-base font-semibold text-gray-900">@order.OrderStatus.ToString()</div>
-                                        </td>
-                                        <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
-                                            <div class="text-base font-semibold text-gray-900">@order.PaymentMethod.ToString()</div>
-                                        </td>
-                                        <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
-                                            <div class="text-base font-semibold text-gray-900">@order.GiftWrap</div>
-                                        </td>
+              
                                     <td class="p-4 whitespace-nowrap space-x-2">
-                                        <a asp-controller="order" asp-action="details" asp-route-id="@order.Id">
+                                        <a asp-controller="category" asp-action="update" >
                                         <button type="button" class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
                                             <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path></svg>
-                                            See details
+                                            Edit item
                                         </button>
                                         </a>
-                                      </td>
+                                    </td>
                                 </tr>
                             }
 
                     </tbody>
                 </table>
+
             </div>
         </div>
     </div>
@@ -168,4 +155,4 @@
 </div>
 
     </main>
-    
+ 

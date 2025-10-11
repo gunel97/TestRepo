@@ -102,5 +102,17 @@ namespace ECommerceProject.BL.Services
             return model;
         }
 
+        public async Task<List<ProductViewModel>> GetProductsAndCategory()
+        {
+            var products = await GetAllAsync(include: x=>x.Include(c=>c.Category!));
+            foreach(var product in products)
+            {
+                var category = await _categoryService.GetByIdAsync(product.CategoryId);
+                if(category != null)
+                product.CategoryName = category.Name;
+            }
+
+            return products.ToList();
+        }
     }
 }
