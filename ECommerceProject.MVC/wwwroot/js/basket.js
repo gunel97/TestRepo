@@ -24,7 +24,7 @@ function loadBasket() {
                                     <div class="tf-mini-cart-info">
                                         <a class="title link" asp-controller="product" asp-action="details"->${item.productName}</a>
                                         <div class="meta-variant">${item.colorName}</div>
-                                        <div class="price fw-6">$${item.price*item.quantity}</div>
+                                        <div class="price fw-6">$${item.price * item.quantity}</div>
                                         <div class="tf-mini-cart-btns">
                                             <div class="wg-quantity small">
                                                 <span onclick="changeQuantity(${item.productVariantId}, -1)" class="btn-quantity minus-btn">-</span>
@@ -37,7 +37,7 @@ function loadBasket() {
                                 </div>`;
             });
             basketTotalCountHeader.innerText = data.totalCount;
-            basketTotalPrice.innerText = "$"+ data.totalPrice;
+            basketTotalPrice.innerText = "$" + data.totalPrice;
         }).catch(error => {
             console.Error('Error:', error);
         });
@@ -86,7 +86,7 @@ function addToBasket(productIdText, quantityTest) {
     console.log(productVariantId);
 
     console.log(quantityTest);
-  
+
     fetch(`/basket/add?productVariantId=${productVariantId}&quantity=${quantityTest}`, {
         method: 'POST',
         headers: {
@@ -95,7 +95,7 @@ function addToBasket(productIdText, quantityTest) {
     })
         .then(response => {
             if (response.ok) {
-                 loadBasket();
+                loadBasket();
                 alert('Product added to basket!');
             }
             else {
@@ -109,11 +109,11 @@ function addToBasket(productIdText, quantityTest) {
 }
 
 function removeFromBasket(productVariantId, element) {
-    
+
     fetch('/basket/remove/' + productVariantId, {
         method: 'POST',
         headers: {
-            'Content-Type':'application-json'
+            'Content-Type': 'application-json'
         }
     })
         .then(response => {

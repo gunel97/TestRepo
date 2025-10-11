@@ -159,8 +159,8 @@
                 <div class="tf-cart-footer-inner">
                     <h5 class="fw-5 mb_20">Your order</h5>
                      <div class="tf-page-cart-checkout widget-wrap-checkout"> 
-                        <ul class="wrap-checkout-product">
-                            @foreach(var item in Model.BasketViewModel?.Items ??  [])
+                        <ul id="checkOutBasketItems" class="wrap-checkout-product">
+                             @foreach(var item in Model.BasketViewModel?.Items ??  [])
                             {
                                 <input asp-for="OrderDetails" type="hidden" />
                                  <li class="checkout-product-item">
@@ -176,7 +176,7 @@
                                         <span class="price">$@item.TotalPrice</span>
                                     </div> 
                                 </li> 
-                            }
+                            } 
                         </ul>
                         <div class="coupon-box">
                             <input id="discountCode" asp-for="Discount"  type="text" placeholder="Discount code">
@@ -193,12 +193,12 @@
                             <div class="fieldset-radio mb_20">
                                     <input asp-for="PaymentMethod" value="DirectBankTransfer" type="radio" id="bank" class="tf-check" checked>
                                 <label for="bank">Direct bank transfer</label>
-
                             </div>
                             <div class="fieldset-radio mb_20">
                                     <input asp-for="PaymentMethod" value="CashOnDelivery" type="radio" id="delivery" class="tf-check">
                                 <label for="delivery">Cash on delivery</label>
                             </div>
+                       
                                 <span asp-validation-for="PaymentMethod"></span>
                             <p class="text_black-2 mb_20">
                                 Your personal data will be used to process your order,
@@ -206,6 +206,13 @@
                                 described in our <a href="privacy-policy.html"
                                                     class="text-decoration-underline">privacy policy</a>.
                             </p>
+                                <div class="box-checkbox fieldset-radio mb_20">
+                                    <input asp-for="GiftWrap" type="checkbox" id="check-agree" class="tf-check">
+                                    <label for="check-agree" class="text_black-2">
+                                        Want Gift Wrap
+                                                                     </label>
+                                    <span asp-validation-for="AcceptTermsConditions"></span>
+                                </div>
                             <div class="box-checkbox fieldset-radio mb_20">
                                 <input asp-for="AcceptTermsConditions" type="checkbox" id="check-agree" class="tf-check">
                                 <label for="check-agree" class="text_black-2">

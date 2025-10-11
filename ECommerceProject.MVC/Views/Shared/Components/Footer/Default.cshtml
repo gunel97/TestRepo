@@ -1899,26 +1899,13 @@
                             </div>
                             <div class="tf-cart-tax">Taxes and <a href="#">shipping</a> calculated at checkout</div>
                             <div class="tf-mini-cart-line"></div>
-                            <div class="tf-cart-checkbox">
-                                <div class="tf-checkbox-wrapp">
-                                    <input class="" type="checkbox" id="CartDrawer-Form_agree"
-                                           name="agree_checkbox">
-                                    <div>
-                                        <i class="icon-check"></i>
-                                    </div>
-                                </div>
-                                <label for="CartDrawer-Form_agree">
-                                    I agree with the
-                                    <a href="#" title="Terms of Service">terms and conditions</a>
-                                </label>
-                            </div>
                             <div class="tf-mini-cart-view-checkout">
                                 <a href="view-cart.html"
                                    class="tf-btn btn-outline radius-3 link w-100 justify-content-center">
                                     View
                                     cart
                                 </a>
-                                <a asp-controller="basket" asp-action="checkout"
+                                <a asp-controller="order" asp-action="checkout"
                                    class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center">
                                     <span>
                                         Check
